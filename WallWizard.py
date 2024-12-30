@@ -134,15 +134,39 @@ def move_piece(x):
             table_piece[a+1][b+1] = x
         else:
             print("EROOR!!!")
-##############################   
-def do_something(x):
-    print("1-> move \n2-> place wall \nchoose : ")
-    s = input()
-    if(s == '1'): print(0)
-    else: print(1)
+############################## تابع ساختن گراف جدول
+def make_gragh():
+    adj = []
+    for i in range(1, n-1):
+        for j in range(1, n-1):
+            x = []
+            if(table_wall_x[i-1][j] == 0):
+                x.append([i-1, j])
+            if(table_wall_x[i][j] == 0):
+                x.append([i+1, j])
+            if(table_wall_y[i][j-1] == 0):
+                x.append([i, j-1])
+            if(table_wall_y[i][j] == 0):
+                x.append([i, j+1])
+            adj.append(x)
+        
+    return adj
+############################## تابع چک کردن وجود مسیر بعد از گذاشتن دیوار (a, b) در راستای x
+def check_pull_wall(a, b, x):
+    # در راستی ایکس میشه صفر و در راستای وای میشه 1
+    if(x == 0):
+        table_wall_x[a][b] = 1
+    else:
+        table_wall_y[a][b] = 1
+    gragh = make_gragh()
+    print(gragh)
+    return      
 
-move_piece(1)
-for i in range(n):
-    for j in range(n):
+for i in range(0, n):
+    for j in range(0, n):
         print(table_piece[i][j], end = " ")
     print()
+#check_pull_wall(0, 0, 0)
+a = make_gragh()
+for i in a:
+    print(i)
