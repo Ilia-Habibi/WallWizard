@@ -3,24 +3,26 @@ n = 9
 table_piece = []
 table_wall_x = []
 table_wall_y = []
-for i in range(n):
-    x = []
-    for j in range(n):
-        x.append(0)
-    table_piece.append(x)
-table_piece[0][4] = 1
-table_piece[8][4] = 2
+def make_starter():
+    for i in range(n):
+        x = []
+        for j in range(n):
+            x.append(0)
+        table_piece.append(x)
+    table_piece[0][4] = 1
+    table_piece[8][4] = 2
 
-for i in range(n-1):
-    x = []
-    for j in range(n):
-        x.append(0)
-    table_wall_x.append(x)
-for i in range(n):
-    x = []
-    for j in range(n-1):
-        x.append(0)
-    table_wall_y.append(x)
+    for i in range(n-1):
+        x = []
+        for j in range(n):
+            x.append(0)
+        table_wall_x.append(x)
+    for i in range(n):
+        x = []
+        for j in range(n-1):
+            x.append(0)
+        table_wall_y.append(x)
+    return
 ############################## تابع چک کردن تعداد دیوار های بازیکن x
 def check_number_wall(x, table_wall):
     ans = 0
@@ -162,6 +164,7 @@ def check_pull_wall(a, b, x):
     print(gragh)
     return      
 
+make_starter()
 for i in range(0, n):
     for j in range(0, n):
         print(table_piece[i][j], end = " ")
