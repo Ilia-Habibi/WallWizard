@@ -69,7 +69,6 @@ def check_move(x):
                 available[1] = False
             elif(table_wall_x[a-2][b] == 1): available[1] = False
 ############### (777)
-    print(a, b)
     if(a == n-1):
         available[7] = False
     else:
@@ -79,15 +78,70 @@ def check_move(x):
                 available[7] = False
             elif(table_wall_x[a+1][b] == 1): available[7] = False
     return available
-##############################
+############################## تابع حرکت مهره x
+def move_piece(x):
+    print("choose: \n0 1 2\n3 P 5\n6 7 8")
+    s = input()
+    place = find_piece(x)
+    check = check_move(x)
+    a = place[0]
+    b = place[1]
+    if(s == '0'):
+        if(check[0] == True):
+            table_piece[a][b] = 0
+            table_piece[a-1][b-1] = x
+        else:
+            print("EROOR!!!")
+    if(s == '1'):
+        if(check[1] == True):
+            table_piece[a][b] = 0
+            table_piece[a-1][b] = x
+        else:
+            print("EROOR!!!")
+    if(s == '2'):
+        if(check[2] == True):
+            table_piece[a][b] = 0
+            table_piece[a-1][b+1] = x
+        else:
+            print("EROOR!!!")
+    if(s == '3'):
+        if(check[3] == True):
+            table_piece[a][b] = 0
+            table_piece[a][b-1] = x
+        else:
+            print("EROOR!!!")
+    if(s == '5'):
+        if(check[5] == True):
+            table_piece[a][b] = 0
+            table_piece[a][b+1] = x
+        else:
+            print("EROOR!!!")
+    if(s == '6'):
+        if(check[6] == True):
+            table_piece[a][b] = 0
+            table_piece[a+1][b-1] = x
+        else:
+            print("EROOR!!!")
+    if(s == '7'):
+        if(check[7] == True):
+            table_piece[a][b] = 0
+            table_piece[a+1][b] = x
+        else:
+            print("EROOR!!!")
+    if(s == '8'):
+        if(check[8] == True):
+            table_piece[a][b] = 0
+            table_piece[a+1][b+1] = x
+        else:
+            print("EROOR!!!")
+##############################   
 def do_something(x):
     print("1-> move \n2-> place wall \nchoose : ")
     s = input()
     if(s == '1'): print(0)
     else: print(1)
 
-print(find_piece(2))
-print(check_move(2))
+move_piece(1)
 for i in range(n):
     for j in range(n):
         print(table_piece[i][j], end = " ")
