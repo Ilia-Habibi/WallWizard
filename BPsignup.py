@@ -507,6 +507,7 @@ print('Hi player! \nWelcome to Quoridor!')
 
 import json
 import re
+from rich import print
 
 username = input('Enter username: ')
 password = input('Enter password: ')
@@ -529,4 +530,4 @@ user_data = {
 with open("Players.json", "w") as outfile:
     json.dump(user_data, outfile, indent=4)
 
-print("Data has been saved to Players.json.")
+print("[bold yellow]Data has been saved to Players.json.[/bold yellow]")
