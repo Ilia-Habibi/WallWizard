@@ -499,4 +499,4 @@
 
 
 
-print('hellobp')
+print('Hi player! \n Welcome to Quoridor!')
