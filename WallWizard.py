@@ -1,3 +1,4 @@
+import os
 ############################# ساختن وسایل اولیه
 n = 9
 table_piece = []
@@ -82,60 +83,68 @@ def check_move(x):
     return available
 ############################## تابع حرکت مهره x
 def move_piece(x):
-    print("choose: \n0 1 2\n3 P 5\n6 7 8")
-    s = input()
-    place = find_piece(x)
-    check = check_move(x)
-    a = place[0]
-    b = place[1]
-    if(s == '0'):
-        if(check[0] == True):
-            table_piece[a][b] = 0
-            table_piece[a-1][b-1] = x
+    while(True):
+        os.system('cls')
+        print("choose: \n0 1 2\n3 P 5\n6 7 8")
+        print("-1 -> EXIT")
+        s = input()
+        place = find_piece(x)
+        check = check_move(x)
+        a = place[0]
+        b = place[1]
+        if(s == '0'):
+            if(check[0] == True):
+                table_piece[a][b] = 0
+                table_piece[a-1][b-1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '1'):
+            if(check[1] == True):
+                table_piece[a][b] = 0
+                table_piece[a-1][b] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '2'):
+            if(check[2] == True):
+                table_piece[a][b] = 0
+                table_piece[a-1][b+1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '3'):
+            if(check[3] == True):
+                table_piece[a][b] = 0
+                table_piece[a][b-1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '5'):
+            if(check[5] == True):
+                table_piece[a][b] = 0
+                table_piece[a][b+1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '6'):
+            if(check[6] == True):
+                table_piece[a][b] = 0
+                table_piece[a+1][b-1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '7'):
+            if(check[7] == True):
+                table_piece[a][b] = 0
+                table_piece[a+1][b] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '8'):
+            if(check[8] == True):
+                table_piece[a][b] = 0
+                table_piece[a+1][b+1] = x
+            else:
+                print("You cannot move in this direction :)")
+        elif(s == '-1'):
+            return
         else:
-            print("EROOR!!!")
-    if(s == '1'):
-        if(check[1] == True):
-            table_piece[a][b] = 0
-            table_piece[a-1][b] = x
-        else:
-            print("EROOR!!!")
-    if(s == '2'):
-        if(check[2] == True):
-            table_piece[a][b] = 0
-            table_piece[a-1][b+1] = x
-        else:
-            print("EROOR!!!")
-    if(s == '3'):
-        if(check[3] == True):
-            table_piece[a][b] = 0
-            table_piece[a][b-1] = x
-        else:
-            print("EROOR!!!")
-    if(s == '5'):
-        if(check[5] == True):
-            table_piece[a][b] = 0
-            table_piece[a][b+1] = x
-        else:
-            print("EROOR!!!")
-    if(s == '6'):
-        if(check[6] == True):
-            table_piece[a][b] = 0
-            table_piece[a+1][b-1] = x
-        else:
-            print("EROOR!!!")
-    if(s == '7'):
-        if(check[7] == True):
-            table_piece[a][b] = 0
-            table_piece[a+1][b] = x
-        else:
-            print("EROOR!!!")
-    if(s == '8'):
-        if(check[8] == True):
-            table_piece[a][b] = 0
-            table_piece[a+1][b+1] = x
-        else:
-            print("EROOR!!!")
+            print("ERROR")
+    return
 ############################## تابع ساختن گراف جدول
 def make_gragh():
     adj = []
@@ -225,9 +234,29 @@ def check_pull_wall(a, b, x):
     if(bool_1 == True and bool_2 == True): return True
     else: return False    
 
+def start_game(x):
+    while(True):
+        os.system('cls')
+        print("Select the move:")
+        print("1-> Move piece")
+        print("2-> Put a wall")
+        print("\n3-> Exit game")
+        print("choose : ", end = "")
+        s = input()
+        if(s == '1'): 
+            move_piece(x)
+        elif(s == '2'):
+            return
+        elif(s == '3'):
+            return
+        else:
+            print("EROOR!!!")
+    return
+
 make_starter()
 for i in range(0, n):
     for j in range(0, n):
         print(table_piece[i][j], end = " ")
     print()
 print()
+start_game(1)
