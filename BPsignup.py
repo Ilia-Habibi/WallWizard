@@ -503,4 +503,30 @@
 
 
 
-print('Hi player! \n Welcome to Quoridor!')
+print('Hi player! \nWelcome to Quoridor!')
+
+import json
+import re
+
+username = input('Enter username: ')
+password = input('Enter password: ')
+email = input('Enter Email: ')
+
+pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
+
+matches = list(pattern.finditer(email))
+
+if not matches:
+    print('Email address invalid.')
+    exit()
+
+user_data = {
+    'user': username,
+    'password': password,
+    'Email': email
+}
+
+with open("Players.json", "w") as outfile:
+    json.dump(user_data, outfile, indent=4)
+
+print("Data has been saved to Players.json.")
