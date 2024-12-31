@@ -145,70 +145,57 @@ def make_gragh():
     
     for i in range(1, n-1):
         for j in range(1, n-1):
-            x = []
             if(table_wall_x[i-1][j] == 0):
-                x.append((i-1)*n + j)
+                adj[i*n + j].append((i-1)*n + j)
             if(table_wall_x[i][j] == 0):
-                x.append((i+1)*n + j)
+                adj[i*n + j].append((i+1)*n + j)
             if(table_wall_y[i][j-1] == 0):
-                x.append(i*n + (j-1))
+                adj[i*n + j].append(i*n + (j-1))
             if(table_wall_y[i][j] == 0):
-                x.append(i*n + (j+1))
-            adj[i*n + j].append(x)
+                adj[i*n + j].append(i*n + (j+1))
     for j in range(1, n-1):
-        x = []
         if(table_wall_x[0][j] == 0):
-            x.append(n + j)
+            adj[j].append(n + j)
         if(table_wall_y[0][j-1] == 0):
-            x.append(j-1)
+            adj[j].append(j-1)
         if(table_wall_y[0][j] == 0):
-            x.append(j+1)
-        adj[j].append(x)
+            adj[j].append(j+1)
     for j in range(1, n-1):
-            x = []
             if(table_wall_x[n-2][j] == 0):
-                x.append((n-2)*n + j)
+                adj[(n-1)*n + j].append((n-2)*n + j)
             if(table_wall_y[n-1][j-1] == 0):
-                x.append((n-1)*n + (j-1))
+                adj[(n-1)*n + j].append((n-1)*n + (j-1))
             if(table_wall_y[n-1][j] == 0):
-                x.append((n-1)*n + (j+1))
-            adj[(n-1)*n + j].append(x)
+                adj[(n-1)*n + j].append((n-1)*n + (j+1))
     for i in range(1, n-1):
-            x = []
             if(table_wall_x[i-1][0] == 0):
-                x.append((i-1)*n)
+                adj[i*n].append((i-1)*n)
             if(table_wall_x[i][0] == 0):
-                x.append((i+1)*n)
+                adj[i*n].append((i+1)*n)
             if(table_wall_y[i][0] == 0):
-                x.append(i*n + (1))
-            adj[i*n].append(x)
+                adj[i*n].append(i*n + (1))
     for i in range(1, n-1):
-            x = []
             if(table_wall_x[i-1][n-1] == 0):
-                x.append((i-1)*n + n-1)
+                adj[i*n + n-1].append((i-1)*n + n-1)
             if(table_wall_x[i][n-1] == 0):
-                x.append((i+1)*n + n-1)
+                adj[i*n + n-1].append((i+1)*n + n-1)
             if(table_wall_y[i][n-2] == 0):
-                x.append(i*n + (n-2))
-            adj[i*n + n-1].append(x)
-    fake_1 = []
-    if(table_wall_x[0][0] == 0): fake_1.append(n)
-    if(table_wall_y[0][0] == 0): fake_1.append(1)
-    adj[0].append(fake_1)
-    fake_2 = []
-    if(table_wall_x[0][n-1] == 0): fake_2.append(2*n - 1)
-    if(table_wall_y[0][n-2] == 0): fake_2.append(n-2)
-    adj[n-1].append(fake_2)
-    fake_3 = []
-    if(table_wall_x[n-2][0] == 0): fake_3.append((n-2)*n)
-    if(table_wall_y[n-1][0] == 0): fake_3.append((n-1)*n + 1)
-    adj[(n-1)*n].append(fake_3)
-    fake_4 = []
-    if(table_wall_x[n-2][n-1] == 0): fake_4.append((n-2)*n + n-1)
-    if(table_wall_y[n-1][n-2] == 0): fake_4.append((n-1)*n + n-2)
-    adj[(n-1)*n + n-1].append(fake_4)
-  
+                adj[i*n + n-1].append(i*n + (n-2))
+    if(table_wall_x[0][0] == 0): adj[0].append(n)
+    if(table_wall_y[0][0] == 0): adj[0].append(1)
+    if(table_wall_x[0][n-1] == 0): adj[n-1].append(2*n - 1)
+    if(table_wall_y[0][n-2] == 0): adj[n-1].append(n-2)
+    if(table_wall_x[n-2][0] == 0): adj[(n-1)*n].append((n-2)*n)
+    if(table_wall_y[n-1][0] == 0): adj[(n-1)*n].append((n-1)*n + 1)
+    if(table_wall_x[n-2][n-1] == 0): adj[(n-1)*n + n-1].append((n-2)*n + n-1)
+    if(table_wall_y[n-1][n-2] == 0): adj[(n-1)*n + n-1].append((n-1)*n + n-2)  
     return adj
+############################## تابع دی اف اس روی جدول
+def dfs(root, seen, gragh):
+    seen[root] = 1
+    for i in gragh[root]:
+        if(seen[i] == 0): dfs(i, seen, gragh)
+    return
 ############################## تابع چک کردن وجود مسیر بعد از گذاشتن دیوار (a, b) در راستای x
 def check_pull_wall(a, b, x):
     # در راستی ایکس میشه صفر و در راستای وای میشه 1
@@ -217,18 +204,30 @@ def check_pull_wall(a, b, x):
     else:
         table_wall_y[a][b] = 1
 
-    place = find_piece(1)
     gragh = make_gragh()
-    print(gragh)
-    return      
+
+    seen_1 = []
+    place_1 = find_piece(1)
+    for i in range(n*n): seen_1.append(0)
+    dfs(place_1[0]*n + place_1[1], seen_1, gragh)
+    bool_1 = False
+    for i in range(n):
+        if(seen_1[(n-1)*n + i] == 1): bool_1 = True
+
+    seen_2 = []
+    place_2 = find_piece(2)
+    for i in range(n*n): seen_2.append(0)
+    dfs(place_2[0]*n + place_2[1], seen_2, gragh)
+    bool_2 = False
+    for i in range(n):
+        if(seen_2[i] == 1): bool_2 = True
+
+    if(bool_1 == True and bool_2 == True): return True
+    else: return False    
 
 make_starter()
 for i in range(0, n):
     for j in range(0, n):
         print(table_piece[i][j], end = " ")
     print()
-
-#check_pull_wall(0, 0, 0)
-a =make_gragh()
-for i in a:
-    print(i)
+print()
