@@ -2,6 +2,7 @@ import os
 import time
 ############################# ساختن وسایل اولیه
 n = 9
+m = 10
 table_piece = []
 table_wall_x = []
 table_wall_y = []
@@ -90,7 +91,14 @@ def print_table():
     for i in range(n):
         for j in range(n):
             print(table_piece[i][j], end = " ")
-        print()
+        if(i == 0): 
+            cnt = m - check_number_wall(1, table_wall_x) - check_number_wall(1, table_wall_y)
+            print(f"  >> player 1 walls : {cnt}")
+        elif(i == 1):
+            cnt = m - check_number_wall(2, table_wall_x) - check_number_wall(2, table_wall_y)
+            print(f"  >> player 2 walls : {cnt}")
+        else:
+            print()
     return
 ############################## تابع حرکت مهره x
 def move_piece(x):
@@ -100,6 +108,7 @@ def move_piece(x):
         print_table()
         print("choose: \n0 1 2\n3 P 5\n6 7 8")
         print("E -> EXIT")
+        print("\nCHOOSE >>> ", end = "")
         s = input()
         place = find_piece(x)
         check = check_move(x)
@@ -293,7 +302,7 @@ def player_turn(x):
         print("1-> Move piece")
         print("2-> Put a wall")
         print("3-> Exit game")
-        print("choose : ", end = "")
+        print("\nCHOOSE >>> ", end = "")
         s = input()
         if(s == '1'): 
             bool = move_piece(x)
@@ -306,6 +315,38 @@ def player_turn(x):
             print("EROOR")
             time.sleep(3)
     return
+############################## تابع چک کردن اتمام بازی و خروجی برنده
+def check_end_game():
+    bool_1 = False
+    bool_2 = False
+    for i in range(n):
+        if(table_piece[n-1][i] == 1):
+            bool_1 = True
+    for i in range(n):
+        if(table_piece[0][i] == 2):
+            bool_2 = True
+    if(bool_1 == True):
+        return 1
+    elif(bool_2 == True):
+        return 2
+    else:
+        return 0
+    return
+############################## تابع خروجی برنده و آپشن ادامه و خروج
+def print_end_game(x):
+    while(True):
+        os.system('cls')
+        print(f"PLAYER {x} WIIIIN :)")
+        print("1-> New Game")
+        print("2-> Exit Game")
+        print("\nCHOOSE >>> ", end = "")
+        s = input()
+        if(s == '1'): return 1
+        elif(s == '2'): return 2
+        else:
+            print("ERROR") 
+            time.sleep(3)
+    return
 ############################## تابع انجام بازی نوبتی
 def do_game():
     while(True):
@@ -315,10 +356,16 @@ def do_game():
         print("1_PLAYER 1")
         print("2_PLAYER 2")
         print("3_EXIT")
+        print("\nCHOOSE >>> ", end = "")
         s = input()
         if(s == '1'):
             x = 1
             while(True):
+                cnt = check_end_game()
+                if(cnt == 1 or cnt == 2):
+                    check = print_end_game(cnt)
+                    if(check == 1): break
+                    else: return
                 if(x%2 == 1):
                     cnt = player_turn(1) 
                     if(cnt == 0): break
@@ -329,6 +376,11 @@ def do_game():
         elif(s == '2'):
             x = 0
             while(True):
+                cnt = check_end_game()
+                if(cnt == 1 or cnt == 2):
+                    check = print_end_game(cnt)
+                    if(check == 1): break
+                    else: return
                 if(x%2 == 1): 
                     cnt = player_turn(1)
                     if(cnt == 0): break
