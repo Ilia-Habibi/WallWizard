@@ -839,6 +839,7 @@ import json
 import re
 import uuid
 import pyfiglet
+import os
 from rich import print
 from rich.console import Console
 
@@ -849,23 +850,6 @@ console = Console()
 print(f"[bold yellow]{ascii_art}[/bold yellow]")
 print(f"[bold violet]Hi players! \nWelcome to Quoridor! \n[bold violet]")
 
-
-# MENU OPTIONS FUNCTIONS
-
-    # option showcase format
-def formatted_print(input1, input2):
-
-    print(f"{input1} ==> {input2}")
-
-    # quit game
-def quit():
-    formatted_print("E", "Exit")
-
-def login():
-    formatted_print("L", "Login")
-
-def register():
-    formatted_print("R", "Register")
 
 
 
@@ -882,7 +866,7 @@ def repetitiveUsername(username):
         if inforamtion[i]["user"] == username:
             print("[bold red]username already exists.[/bold red]")
             username = input("Enter a unique username: ")
-            repetitiveUsername(username)
+            return repetitiveUsername(username)
     return username
 
 def checkEmail(Email):
@@ -892,7 +876,7 @@ def checkEmail(Email):
     if not matches:
         print("[bold red]Email address invalid.[/bold red]")
         Email = input("Enter the email again: ")
-        checkEmail(Email)
+        return checkEmail(Email)
     return Email
 
 def repetitiveEmail(Email):
@@ -902,7 +886,7 @@ def repetitiveEmail(Email):
         if inforamtion[i]["Email"] == Email:
             print("[bold red]Email already exists.[/bold red]")
             Email = input("Enter a unique Email: ")
-            repetitiveEmail(Email)
+            return repetitiveEmail(Email)
     return Email
     
 
@@ -929,30 +913,74 @@ def registerInformation(id,username,password,email):
     print('[bold green]signup is complete.[/bold green]')
 
 
-# START MENU
 
-login()
-register()
-quit()
-print("\n")
+################################################################################
 
-ss = input("Enter your choice: ")
-if ss == "E":
+# MENU OPTIONS FUNCTIONS
+
+def check_json(file_path): #موقت
+    return os.path.getsize(file_path) == 0
+
+
+    # option showcase format
+def formatted_print(input1, input2):
+
+    print(f"{input1} ==> {input2}")
+
+    # quit game
+def quit():
+    print("\n[bold cyan]Thank you for playing Quoridor![/bold cyan]")
     print("-" * 60)
     exit()
-elif ss == "R":
-    login()
-    register()
-    print("-" * 50)
+
+def login():
+    print("[bold green]Login selected[/bold green]") #موقت
+
+def register():
+    username = input('Enter username: ')
+    confirmedUsername = repetitiveUsername(username)
+    idUser = uuid.uuid4()
+    password = input('Enter password: ')
+    confirmedPassword = checkPassword(password)
+    email = input('Enter Email: ')
+    confirmedEmail = checkEmail(email)
+    confirmedEmail = repetitiveEmail(confirmedEmail)
+    registerInformation(idUser,confirmedUsername,confirmedPassword,confirmedEmail)
+
+def leaderboard():
+    exit() #موقت
+
+def start_menu():
+    if check_json("Players.json"):
+        formatted_print("L", "Login")
+    formatted_print("R", "Register")
+    formatted_print("B", "Leaderboard")
+    formatted_print("E", "Exit")
+    print("\n")
+    ss = input("Enter your choice: ")
+    if ss == "E":
+        quit()
+    elif ss == "R":
+        print("\n")
+        print("-" * 60)
+        register()#موقت
+    elif ss == "L":
+        login()
+    elif ss == "B":
+        leaderboard()
+
+
+def main_game():
 
 
 
-username = input('Enter username: ')
-confirmedUsername = repetitiveUsername(username)
-idUser = uuid.uuid4()
-password = input('Enter password: ')
-confirmedPassword = checkPassword(password)
-email = input('Enter Email: ')
-confirmedEmail = checkEmail(email)
-confirmedEmail = repetitiveEmail(confirmedEmail)
-registerInformation(idUser,confirmedUsername,confirmedPassword,confirmedEmail)
+########################################################################################
+
+
+
+start_menu()
+main_game()
+
+
+
+
