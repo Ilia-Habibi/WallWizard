@@ -503,12 +503,377 @@
 
 
 
-print('Hi player! \nWelcome to Quoridor!')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import json
 import re
 import uuid
+import pyfiglet
 from rich import print
+from rich.console import Console
+
+
+
+ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
+console = Console()
+print(f"[bold yellow]{ascii_art}[/bold yellow]")
+print(f"[bold violet]Hi players! \nWelcome to Quoridor! \n[bold violet]")
+
+
+# MENU OPTIONS FUNCTIONS
+
+    # option showcase format
+def formatted_print(input1, input2):
+
+    print(f"{input1} ==> {input2}")
+
+    # quit game
+def quit():
+    formatted_print("E", "Exit")
+
+def login():
+    formatted_print("L", "Login")
+
+def register():
+    formatted_print("R", "Register")
+
+
+
+
+
+
+
+# LOGIN FUNCTIONS
 
 def checkEmail(Email):
     pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
@@ -539,6 +904,25 @@ def registerInformation(id,username,password,email):
         json.dump(user_data, outfile, indent=4)
 
     print("[bold green]Data has been saved to Players.json.[/bold green]")
+
+
+# START MENU
+
+login()
+register()
+quit()
+print("\n")
+
+ss = input("Enter your choice: ")
+if ss == "E":
+    print("-" * 60)
+    exit()
+elif ss == "R":
+    login()
+    register()
+    print("-" * 50)
+
+
 
 username = input('Enter username: ')
 idUser = uuid.uuid4()
