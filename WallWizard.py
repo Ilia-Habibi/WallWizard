@@ -115,8 +115,12 @@ def move_piece(x):
                 time.sleep(3)
         elif(s == '1'):
             if(check[1] == True):
-                table_piece[a][b] = 0
-                table_piece[a-1][b] = x
+                if(table_piece[a-1][b] == 0):
+                    table_piece[a][b] = 0
+                    table_piece[a-1][b] = x
+                else:
+                    table_piece[a][b] = 0
+                    table_piece[a-2][b] = x
                 return 1
             else:
                 print("You cannot move in this direction :)")
@@ -131,16 +135,24 @@ def move_piece(x):
                 time.sleep(3)
         elif(s == '3'):
             if(check[3] == True):
-                table_piece[a][b] = 0
-                table_piece[a][b-1] = x
+                if(table_piece[a][b-1] == 0):
+                    table_piece[a][b] = 0
+                    table_piece[a][b-1] = x
+                else:
+                    table_piece[a][b] = 0
+                    table_piece[a][b-2] = x
                 return 1
             else:
                 print("You cannot move in this direction :)")
                 time.sleep(3)
         elif(s == '5'):
             if(check[5] == True):
-                table_piece[a][b] = 0
-                table_piece[a][b+1] = x
+                if(table_piece[a][b+1] == 0):
+                    table_piece[a][b] = 0
+                    table_piece[a][b+1] = x
+                else:
+                    table_piece[a][b] = 0
+                    table_piece[a][b+2] = x
                 return 1
             else:
                 print("You cannot move in this direction :)")
@@ -155,8 +167,12 @@ def move_piece(x):
                 time.sleep(3)
         elif(s == '7'):
             if(check[7] == True):
-                table_piece[a][b] = 0
-                table_piece[a+1][b] = x
+                if(table_piece[a+1][b] == 0):
+                    table_piece[a][b] = 0
+                    table_piece[a+1][b] = x
+                else:
+                    table_piece[a][b] = 0
+                    table_piece[a+2][b] = x
                 return 1
             else:
                 print("You cannot move in this direction :)")
@@ -261,13 +277,12 @@ def check_pull_wall(a, b, x):
     for i in range(n):
         if(seen_2[i] == 1): bool_2 = True
 
+    if(x == 0):
+        table_wall_x[a][b] = 0
+    else:
+        table_wall_y[a][b] = 0
     if(bool_1 == True and bool_2 == True): return True
-    else: 
-        if(x == 0):
-            table_wall_x[a][b] = 0
-        else:
-            table_wall_y[a][b] = 0
-        return False    
+    else: return False    
 ############################## تابع نوبت بازیکن x
 def player_turn(x):
     while(True):
@@ -288,7 +303,8 @@ def player_turn(x):
         elif(s == '3'):
             return 0
         else:
-            print("EROOR!!!")
+            print("EROOR")
+            time.sleep(3)
     return
 ############################## تابع انجام بازی نوبتی
 def do_game():
