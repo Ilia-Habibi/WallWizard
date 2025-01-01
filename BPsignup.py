@@ -507,6 +507,7 @@ print('Hi player! \nWelcome to Quoridor!')
 
 import json
 import re
+import uuid
 from rich import print
 
 def checkEmail(Email):
@@ -532,13 +533,14 @@ email = input('Enter Email: ')
 
 checkEmail(email)
 checkPassword(password)
-user_data = {
-    'user': username,
-    'password': password,
-    'Email': email
-}
+def registerInformation(username,password,email):
+    user_data = {
+        'user': username,
+        'password': password,
+        'Email': email
+    }
 
-with open("Players.json", "w") as outfile:
-    json.dump(user_data, outfile, indent=4)
+    with open("Players.json", "w") as outfile:
+        json.dump(user_data, outfile, indent=4)
 
-print("[bold yellow]Data has been saved to Players.json.[/bold yellow]")
+    print("[bold yellow]Data has been saved to Players.json.[/bold yellow]")
