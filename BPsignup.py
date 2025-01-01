@@ -510,6 +510,16 @@ import re
 import uuid
 from rich import print
 
+def repetitiveUsername(username):
+    with open('Players.json', 'r') as file:
+        inforamtion = json.load(file)
+    for i in inforamtion:
+        if inforamtion[i]["user"] == username:
+            print("[bold red]username already exists.[/bold red]")
+            username = input("Enter a unique username: ")
+            repetitiveUsername(username)
+    return username
+
 def checkEmail(Email):
     pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
     matches = list(pattern.finditer(Email))
@@ -519,6 +529,17 @@ def checkEmail(Email):
         Email = input("Enter the email again: ")
         checkEmail(Email)
     return Email
+
+def repetitiveEmail(Email):
+    with open('Players.json', 'r') as file:
+        inforamtion = json.load(file)
+    for i in inforamtion:
+        if inforamtion[i]["Email"] == Email:
+            print("[bold red]Email already exists.[/bold red]")
+            Email = input("Enter a unique Email: ")
+            repetitiveEmail(Email)
+    return Email
+    
 
 def checkPassword(Password):
     if len(Password)<=8:
@@ -540,13 +561,14 @@ def registerInformation(id,username,password,email):
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
 
-
-    print("[bold green]Data has been saved to Players.json.[/bold green]")
+    print('[bold green]signup is complete.[/bold green]')
 
 username = input('Enter username: ')
+confirmedUsername = repetitiveUsername(username)
 idUser = uuid.uuid4()
 password = input('Enter password: ')
-ConfirmedPassword = checkPassword(password)
+confirmedPassword = checkPassword(password)
 email = input('Enter Email: ')
-ConfirmedEmail = checkEmail(email)
-registerInformation(idUser,username,ConfirmedPassword,ConfirmedEmail)
+confirmedEmail = checkEmail(email)
+confirmedEmail = repetitiveEmail(confirmedEmail)
+registerInformation(idUser,confirmedUsername,confirmedPassword,confirmedEmail)
