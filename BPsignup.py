@@ -512,35 +512,38 @@ from rich import print
 
 def checkEmail(Email):
     pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
-
     matches = list(pattern.finditer(Email))
 
     if not matches:
-        print('Email address invalid.')
+        print("[bold red]Email address invalid.[/bold red]")
         Email = input("Enter the email again: ")
         checkEmail(Email)
+    return Email
 
 def checkPassword(Password):
     if len(Password)<=8:
-        print("Please make the password more than 8 characters")
-        Password = input("Enter the password again")
+        print("[bold red]Please make the password more than 8 characters[/bold red]")
+        Password = input("Enter the password again: ")
         checkPassword(Password)
+    return Password
 
-
-username = input('Enter username: ')
-password = input('Enter password: ')
-email = input('Enter Email: ')
-
-checkEmail(email)
-checkPassword(password)
-def registerInformation(username,password,email):
+def registerInformation(id,username,password,email):
     user_data = {
-        'user': username,
-        'password': password,
-        'Email': email
+        str(id) : {
+            'user': username,
+            'password': password,
+            'Email': email}
     }
 
     with open("Players.json", "w") as outfile:
         json.dump(user_data, outfile, indent=4)
 
-    print("[bold yellow]Data has been saved to Players.json.[/bold yellow]")
+    print("[bold green]Data has been saved to Players.json.[/bold green]")
+
+username = input('Enter username: ')
+idUser = uuid.uuid4()
+password = input('Enter password: ')
+ConfirmedPassword = checkPassword(password)
+email = input('Enter Email: ')
+ConfirmedEmail = checkEmail(email)
+registerInformation(idUser,username,ConfirmedPassword,ConfirmedEmail)
