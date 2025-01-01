@@ -509,18 +509,29 @@ import json
 import re
 from rich import print
 
+def checkEmail(Email):
+    pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
+
+    matches = list(pattern.finditer(Email))
+
+    if not matches:
+        print('Email address invalid.')
+        Email = input("Enter the email again: ")
+        checkEmail(Email)
+
+def checkPassword(Password):
+    if len(Password)<=8:
+        print("Please make the password more than 8 characters")
+        Password = input("Enter the password again")
+        checkPassword(Password)
+
+
 username = input('Enter username: ')
 password = input('Enter password: ')
 email = input('Enter Email: ')
 
-pattern = re.compile(r'[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}')
-
-matches = list(pattern.finditer(email))
-
-if not matches:
-    print('Email address invalid.')
-    exit()
-
+checkEmail(email)
+checkPassword(password)
 user_data = {
     'user': username,
     'password': password,
