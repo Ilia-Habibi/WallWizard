@@ -528,15 +528,18 @@ def checkPassword(Password):
     return Password
 
 def registerInformation(id,username,password,email):
-    user_data = {
-        str(id) : {
-            'user': username,
-            'password': password,
-            'Email': email}
+    with open("Players.json", 'r') as file:
+        data = json.load(file)
+    
+    data[str(id)] = {
+        "user": username,
+        "password": password,
+        "Email": email
     }
 
-    with open("Players.json", "w") as outfile:
-        json.dump(user_data, outfile, indent=4)
+    with open("Players.json", 'w') as file:
+        json.dump(data,file,indent=4)
+
 
     print("[bold green]Data has been saved to Players.json.[/bold green]")
 
