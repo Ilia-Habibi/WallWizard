@@ -504,7 +504,7 @@
 
 
 print('Hi player! \nWelcome to Quoridor!')
-
+import bcrypt
 import json
 import re
 import uuid
