@@ -981,6 +981,18 @@ def main_game():
 start_menu()
 main_game()
 
+####################################################################################
+#login
+def userLogin():
+    username = input("Username: ")
+    with open("Players.json", 'r')as file:
+        inforamtion = json.load(file)
+    for i in inforamtion:
+        if inforamtion[i]["user"] == username:
+            return True
+        else:
+            username = input("Username: ")
+            userLogin()
 
 
 
