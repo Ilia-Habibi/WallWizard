@@ -86,41 +86,69 @@ def check_move(x):
                 available[7] = False
             elif(table_wall_x[a+1][b] == 1): available[7] = False
 ############### (000)
-    if(table_piece[a][b-1] != 0) and (table_wall_y[a][b-1] == 0):
-        if(b-1 == 0) or (table_wall_y[a][b-2] == 1):
-            if table_wall_x[a-1][b-1]==0:
-                available[0]=True
-    elif(table_piece[a-1][b] != 0) and (table_wall_x[a-1][b] == 0):
-        if(a-1 == 0) or (table_wall_x[a-2][b] == 1):
-            if table_wall_y[a-1][b-1]==0:
-                available[0]=True
+    if(b!=0)and(a!=0):   
+        if(table_piece[a][b-1] != 0) and (table_wall_y[a][b-1] == 0):
+            if(b-1 == 0):
+                if table_wall_x[a-1][b-1]==0:
+                    available[0]=True
+            elif(table_wall_y[a][b-2] == 1):
+                if table_wall_x[a-1][b-1]==0:
+                    available[0]=True
+        elif(table_piece[a-1][b] != 0) and (table_wall_x[a-1][b] == 0):
+            if(a-1 == 0):
+                if table_wall_y[a-1][b-1]==0:
+                    available[0]=True
+            elif(table_wall_x[a-2][b] == 1):
+                if table_wall_y[a-1][b-1]==0:
+                    available[0]=True
 ############### (222)
-    if(table_piece[a][b+1] != 0) and (table_wall_y[a][b] == 0):
-        if(b+1 == n-1) or (table_wall_y[a][b+1] == 1):
-            if table_wall_x[a-1][b+1]==0:
-                available[2]=True
-    elif(table_piece[a-1][b] != 0) and (table_wall_x[a-1][b] == 0):
-        if(a-1 == 0) or (table_wall_x[a-2][b] == 1):
-            if table_wall_y[a-1][b]==0:
-                available[2]=True
+    if(b!=n-1)and(a!=0):     
+        if(table_piece[a][b+1] != 0) and (table_wall_y[a][b] == 0):
+            if(b+1 == n-1):
+                if table_wall_x[a-1][b+1]==0:
+                    available[2]=True
+            elif(table_wall_y[a][b+1] == 1):
+                if table_wall_x[a-1][b+1]==0:
+                    available[2]=True
+        elif(table_piece[a-1][b] != 0) and (table_wall_x[a-1][b] == 0):
+            if(a-1 == 0):
+                if table_wall_y[a-1][b]==0:
+                    available[2]=True
+            elif(table_wall_x[a-2][b] == 1):
+                if table_wall_y[a-1][b]==0:
+                    available[2]=True
 ############### (666)
-    if(table_piece[a][b-1] != 0) and (table_wall_y[a][b-1] == 0):
-        if(b-1 == 0) or (table_wall_y[a][b-2] == 1):
-            if table_wall_x[a][b-1]==0:
-                available[6]=True
-    elif(table_piece[a+1][b] != 0) and (table_wall_x[a][b] == 0):
-        if(a+1 == n-1) or (table_wall_x[a+1][b] == 1):
-            if table_wall_y[a+1][b-1]==0:
-                available[6]=True
+    if(b!=0)and(a!=n-1):     
+        if(table_piece[a][b-1] != 0) and (table_wall_y[a][b-1] == 0):
+            if(b-1 == 0):
+                if table_wall_x[a][b-1]==0:
+                    available[6]=True
+            elif(table_wall_y[a][b-2] == 1):
+                if table_wall_x[a][b-1]==0:
+                    available[6]=True
+        elif(table_piece[a+1][b] != 0) and (table_wall_x[a][b] == 0):
+            if(a+1 == n-1):
+                if table_wall_y[a+1][b-1]==0:
+                    available[6]=True
+            elif(table_wall_x[a+1][b] == 1):
+                if table_wall_y[a+1][b-1]==0:
+                    available[6]=True
 ############### (888)
-    if(table_piece[a][b+1] != 0) and (table_wall_y[a][b] == 0):
-        if(b+1 == n-1) or (table_wall_y[a][b+1] == 1):
-            if table_wall_x[a][b+1]==0:
-                available[8]=True
-    elif(table_piece[a+1][b] != 0) and (table_wall_x[a][b] == 0):
-        if(a+1 == n-1) or (table_wall_x[a+1][b] == 1):
-            if table_wall_y[a+1][b]==0:
-                available[8]=True
+    if(b!=n-1)and(a!=n-1):     
+        if(table_piece[a][b+1] != 0) and (table_wall_y[a][b] == 0):
+            if(b+1 == n-1):
+                if table_wall_x[a][b+1]==0:
+                    available[8]=True
+            elif(table_wall_y[a][b+1] == 1):
+                if table_wall_x[a][b+1]==0:
+                    available[8]=True
+        elif(table_piece[a+1][b] != 0) and (table_wall_x[a][b] == 0):
+            if(a+1 == n-1):
+                if table_wall_y[a+1][b]==0:
+                    available[8]=True
+            elif(table_wall_x[a+1][b] == 1):
+                if table_wall_y[a+1][b]==0:
+                    available[8]=True
     return available
 ############################## تابع نمایش جدول
 def print_table():
