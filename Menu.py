@@ -983,16 +983,23 @@ main_game()
 
 ####################################################################################
 #login
-def userLogin():
+def usernameLogin():
     username = input("Username: ")
     with open("Players.json", 'r')as file:
         inforamtion = json.load(file)
     for i in inforamtion:
         if inforamtion[i]["user"] == username:
-            return True
-        else:
-            username = input("Username: ")
-            userLogin()
+            print("[bold green]username is correct.[/bold green]")
+            return
+    print("[bold red]username is incorrect.[/bold red]")
+    return usernameLogin()
+usernameLogin()
 
-
-
+def passwordLogin():
+    password = input("Password: ")
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if information[i]["password"] == password:
+            print("[bold green]You are logged in to your account[/bold green]")
+    
