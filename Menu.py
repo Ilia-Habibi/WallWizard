@@ -896,7 +896,8 @@ def checkPassword(Password):
 def hashedPassword(password):
     hash = password.encode('utf-8')
     hashed = bcrypt.hashpw(hash, bcrypt.gensalt())
-    return hashed
+    hashedSaved = hashed.decode('utf-8')
+    return hashedSaved
 
 def registerInformation(id,username,password,email):
     with open("Players.json", 'r') as file:
