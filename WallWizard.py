@@ -6,28 +6,17 @@ m = 10
 table_piece = []
 table_wall_x = []
 table_wall_y = []
+table_wall_points = []
 def make_starter():
-    table_piece.clear()
-    table_wall_x.clear()
-    table_wall_y.clear()
-    for i in range(n):
-        x = []
-        for j in range(n):
-            x.append(0)
-        table_piece.append(x)
+    global table_wall_points
+    global table_wall_x
+    global table_wall_y
+    table_piece = [[0 for _ in range(n)] for _ in range(n)]
     table_piece[0][4] = 1
     table_piece[8][4] = 2
-
-    for i in range(n-1):
-        x = []
-        for j in range(n):
-            x.append(0)
-        table_wall_x.append(x)
-    for i in range(n):
-        x = []
-        for j in range(n-1):
-            x.append(0)
-        table_wall_y.append(x)
+    table_wall_x = [[0 for _ in range(n)] for _ in range(n-1)]
+    table_wall_y = [[0 for _ in range(n-1)] for _ in range(n)]
+    table_wall_points = [[0 for _ in range(n-1)] for _ in range(n-1)]
     return
 ############################## تابع چک کردن تعداد دیوار های بازیکن x
 def check_number_wall(x, table_wall):
@@ -466,6 +455,3 @@ for i in range(0, n):
     print()
 print()
 do_game()
-
-
-
