@@ -973,7 +973,7 @@ def start_menu():
         leaderboard()
 
 
-def main_game():
+# def main_game():
 
 
 
@@ -982,7 +982,7 @@ def main_game():
 
 
 start_menu()
-main_game()
+# main_game()
 
 ####################################################################################
 #login
