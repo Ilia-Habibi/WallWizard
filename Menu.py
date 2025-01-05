@@ -906,7 +906,8 @@ def registerInformation(id,username,password,email):
     data[str(id)] = {
         "user": username,
         "password": password,
-        "Email": email
+        "Email": email,
+        "win" : 0
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
