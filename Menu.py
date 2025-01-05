@@ -962,6 +962,7 @@ def quit():
     exit()
 
 
+
 def usernameLogin():
     username = input("Username: ")
     with open("Players.json", 'r')as file:
