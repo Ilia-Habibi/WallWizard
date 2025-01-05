@@ -1,17 +1,3 @@
 {
-    "ec2718bc-1f0f-4c08-8c9a-afcb1dfb04ba": {
-        "user": "srgger",
-        "password": "$2b$12$puGzjLJzCjWYJR1HuI3ESujBxTjjmBTF4hTWJ3IGOpFvtvj.H23A.",
-        "Email": "edwui@fue.vn"
-    },
-    "65f8dc01-ad84-4c43-a86f-48cb1d5f6bdd": {
-        "user": "dfuuh",
-        "password": "$2b$12$hJiFdRr1.15w0fhW1MGxLOz4zpIdqP/OOUac0VKTO84z6U9ZTJwPC",
-        "Email": "nvero@fhg.vif"
-    },
-    "42407941-bcdf-41d8-9c90-9890d511be0f": {
-        "user": "wfur",
-        "password": "$2b$12$lsDNG2J4SAlxgWs.xdDaZ.FfWA.AzmHIESh8DgKfGVCQK3mNvQQcG",
-        "Email": "gieto@ur.cv"
-    }
+    
 }
