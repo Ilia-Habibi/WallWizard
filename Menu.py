@@ -951,7 +951,7 @@ def leaderboard():
     exit() #موقت
 
 def start_menu():
-    if check_json("Players.json"):
+    if not check_json("Players.json"):
         formatted_print("L", "Login")
     formatted_print("R", "Register")
     formatted_print("B", "Leaderboard")
@@ -969,6 +969,12 @@ def start_menu():
     elif ss == "B":
         leaderboard()
 
+
+
+
+def print_table():
+
+def move_piece():
 
 def main_game():
 
