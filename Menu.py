@@ -935,8 +935,28 @@ def quit():
     print("-" * 60)
     exit()
 
-def login():
-    print("[bold green]Login selected[/bold green]") #موقت
+
+def usernameLogin():
+    username = input("Username: ")
+    with open("Players.json", 'r')as file:
+        inforamtion = json.load(file)
+    for i in inforamtion:
+        if inforamtion[i]["user"] == username:
+            print("[bold green]username is correct.[/bold green]")
+            return
+    print("[bold red]username is incorrect.[/bold red]")
+    return usernameLogin()
+
+def passwordLogin():
+    password = input("Password: ")
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
+            print("[bold green]You are logged in to your account[/bold green]")
+            return
+    print("[bold red]Password is incorrect.[/bold red]")
+    return passwordLogin()
 
 def register():
     username = input('Enter username: ')
@@ -968,18 +988,21 @@ def start_menu():
         print("-" * 60)
         register()#موقت
     elif ss == "L":
-        login()
+        print("\n")
+        print("-" * 60)
+        usernameLogin()
+        passwordLogin()
     elif ss == "B":
         leaderboard()
 
 
 
 
-def print_table():
+  #  def print_table():
 
-def move_piece():
+   # def move_piece():
 
-def main_game():
+    #def main_game():
 
 
 
@@ -988,28 +1011,7 @@ def main_game():
 
 
 start_menu()
-main_game()
+#main_game()
 
 ####################################################################################
 #login
-def usernameLogin():
-    username = input("Username: ")
-    with open("Players.json", 'r')as file:
-        inforamtion = json.load(file)
-    for i in inforamtion:
-        if inforamtion[i]["user"] == username:
-            print("[bold green]username is correct.[/bold green]")
-            return
-    print("[bold red]username is incorrect.[/bold red]")
-    return usernameLogin()
-
-def passwordLogin():
-    password = input("Password: ")
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for i in information:
-        if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
-            print("[bold green]You are logged in to your account[/bold green]")
-            return
-    print("[bold red]Password is incorrect.[/bold red]")
-    return passwordLogin()
