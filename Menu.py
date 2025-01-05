@@ -935,57 +935,8 @@ def quit():
     print("-" * 60)
     exit()
 
-def login():
-    print("[bold green]Login selected[/bold green]") #موقت
-
-def register():
-    username = input('Enter username: ')
-    confirmedUsername = repetitiveUsername(username)
-    idUser = uuid.uuid4()
-    password = input('Enter password: ')
-    confirmedPassword = checkPassword(password)
-    hashPassword = hashedPassword(confirmedPassword)
-    email = input('Enter Email: ')
-    confirmedEmail = checkEmail(email)
-    confirmedEmail = repetitiveEmail(confirmedEmail)
-    registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
-
-def leaderboard():
-    exit() #موقت
-
-def start_menu():
-    if check_json("Players.json"):
-        formatted_print("L", "Login")
-    formatted_print("R", "Register")
-    formatted_print("B", "Leaderboard")
-    formatted_print("E", "Exit")
-    print("\n")
-    ss = input("Enter your choice: ")
-    if ss == "E":
-        quit()
-    elif ss == "R":
-        print("\n")
-        print("-" * 60)
-        register()#موقت
-    elif ss == "L":
-        login()
-    elif ss == "B":
-        leaderboard()
 
 
-# def main_game():
-
-
-
-########################################################################################
-
-
-
-start_menu()
-# main_game()
-
-####################################################################################
-#login
 def usernameLogin():
     username = input("Username: ")
     with open("Players.json", 'r')as file:
@@ -1007,3 +958,61 @@ def passwordLogin():
             return
     print("[bold red]Password is incorrect.[/bold red]")
     return passwordLogin()
+
+def register():
+    username = input('Enter username: ')
+    confirmedUsername = repetitiveUsername(username)
+    idUser = uuid.uuid4()
+    password = input('Enter password: ')
+    confirmedPassword = checkPassword(password)
+    hashPassword = hashedPassword(confirmedPassword)
+    email = input('Enter Email: ')
+    confirmedEmail = checkEmail(email)
+    confirmedEmail = repetitiveEmail(confirmedEmail)
+    registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+
+def leaderboard():
+    exit() #موقت
+
+def start_menu():
+    if not check_json("Players.json"):
+        formatted_print("L", "Login")
+    formatted_print("R", "Register")
+    formatted_print("B", "Leaderboard")
+    formatted_print("E", "Exit")
+    print("\n")
+    ss = input("Enter your choice: ")
+    if ss == "E":
+        quit()
+    elif ss == "R":
+        print("\n")
+        print("-" * 60)
+        register()#موقت
+    elif ss == "L":
+        print("\n")
+        print("-" * 60)
+        usernameLogin()
+        passwordLogin()
+    elif ss == "B":
+        leaderboard()
+
+
+
+
+  #  def print_table():
+
+   # def move_piece():
+
+    #def main_game():
+
+
+
+########################################################################################
+
+
+
+start_menu()
+#main_game()
+
+####################################################################################
+#login
