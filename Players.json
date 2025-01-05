@@ -1,15 +1,7 @@
 {
-<<<<<<< HEAD
     "b7237be2-a7db-4f9e-9b2c-24787696f8b4": {
         "user": "VNRUINV",
         "password": "$2b$12$ck7G1um9Ta93dsunHZxbN.8tHn7oHHiUyaLsYl1WkJoPnPhHihrN.",
-        "Email": "ntvn@fh.cf",
-=======
-    "ee7b4d06-a067-432a-b072-c974fbf86ec5": {
-        "user": "a",
-        "password": "$2b$12$Oje/efZBsHT0CtmPlh.PXuNGUd9Fotm2Bm7dSEHxwfSF/lhENNwaO",
-        "Email": "a@a.com",
->>>>>>> b3882d790f8fb2a563093b135d3a50381a589b3a
-        "win": 0
+        "Email": "ntvn@fh.cf"
     }
 }
