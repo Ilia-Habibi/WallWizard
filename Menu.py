@@ -842,6 +842,7 @@ import pyfiglet
 import os
 from rich import print
 from rich.console import Console
+import bcrypt
 
 
 
@@ -852,12 +853,7 @@ print(f"[bold violet]Hi players! \nWelcome to Quoridor! \n[bold violet]")
 
 
 
-
-
-
-
-
-# LOGIN FUNCTIONS
+# signup FUNCTIONS
 
 def repetitiveUsername(username):
     with open('Players.json', 'r') as file:
@@ -897,6 +893,12 @@ def checkPassword(Password):
         checkPassword(Password)
     return Password
 
+def hashedPassword(password):
+    hash = password.encode('utf-8')
+    hashed = bcrypt.hashpw(hash, bcrypt.gensalt())
+    hashedSaved = hashed.decode('utf-8')
+    return hashedSaved
+
 def registerInformation(id,username,password,email):
     with open("Players.json", 'r') as file:
         data = json.load(file)
@@ -904,9 +906,9 @@ def registerInformation(id,username,password,email):
     data[str(id)] = {
         "user": username,
         "password": password,
-        "Email": email
+        "Email": email,
+        "win" : 0
     }
-
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
 
@@ -942,10 +944,11 @@ def register():
     idUser = uuid.uuid4()
     password = input('Enter password: ')
     confirmedPassword = checkPassword(password)
+    hashPassword = hashedPassword(confirmedPassword)
     email = input('Enter Email: ')
     confirmedEmail = checkEmail(email)
     confirmedEmail = repetitiveEmail(confirmedEmail)
-    registerInformation(idUser,confirmedUsername,confirmedPassword,confirmedEmail)
+    registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
 
 def leaderboard():
     exit() #موقت
@@ -987,6 +990,26 @@ def main_game():
 start_menu()
 main_game()
 
+####################################################################################
+#login
+def usernameLogin():
+    username = input("Username: ")
+    with open("Players.json", 'r')as file:
+        inforamtion = json.load(file)
+    for i in inforamtion:
+        if inforamtion[i]["user"] == username:
+            print("[bold green]username is correct.[/bold green]")
+            return
+    print("[bold red]username is incorrect.[/bold red]")
+    return usernameLogin()
 
-
-
+def passwordLogin():
+    password = input("Password: ")
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
+            print("[bold green]You are logged in to your account[/bold green]")
+            return
+    print("[bold red]Password is incorrect.[/bold red]")
+    return passwordLogin()
