@@ -1001,7 +1001,7 @@ def passwordLogin():
     with open("Players.json", 'r') as file:
         information = json.load(file)
     for i in information:
-        if information[i]["password"] == password:
+        if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
             print("[bold green]You are logged in to your account[/bold green]")
             return
     print("[bold red]Password is incorrect.[/bold red]")
