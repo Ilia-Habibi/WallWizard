@@ -848,8 +848,8 @@ import bcrypt
 
 ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
 console = Console()
-print(f"[bold yellow]{ascii_art}[/bold yellow]")
-print(f"[bold violet]Hi players! \nWelcome to Quoridor! \n[bold violet]")
+print(f"[bold red]{ascii_art}[/bold red]")
+print(f"[bold yellow]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold yellow]")
 
 
 
@@ -911,6 +911,8 @@ def registerInformation(id,username,password,email):
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
+    if str(id) not in players:
+        players.append(str(id))
 
     print('[bold green]signup is complete.[/bold green]')
 
@@ -918,23 +920,52 @@ def registerInformation(id,username,password,email):
 
 ################################################################################
 
+
+menu_history =[]
+
+
+
 # MENU OPTIONS FUNCTIONS
 
-def check_json(file_path): #موقت
-    return os.path.getsize(file_path) == 0
+ #   def check_json(file_path):
+  #      if not os.path.exists(file_path):
+#         print(f"File '{file_path}' does not exist.")
+#            return True
+#        return os.path.getsize(file_path) == 0
+#    file_path = "Players.json"
+
 
 
     # option showcase format
 def formatted_print(input1, input2):
-
     print(f"{input1} ==> {input2}")
+
+def menu_split():
+    print("[bold purple]-[/bold purple]"* 60)
+
+
+def navigate(menu):
+    menu_history.append(menu)
+    menu()
+
+def back():
+    if menu_history:
+        menu_history.pop()
+        if menu_history:
+            menu_history[-1]()
+        else:
+            initial_menu()
+            
 
     # quit game
 def quit():
     print("\n[bold cyan]Thank you for playing Quoridor![/bold cyan]")
-    print("-" * 60)
+    menu_split()
     exit()
 
+
+players = []
+#def player_indicate():
 
 
 def usernameLogin():
@@ -955,11 +986,15 @@ def passwordLogin():
     for i in information:
         if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
             print("[bold green]You are logged in to your account[/bold green]")
+            if i not in players:
+                players.append(i)
             return
     print("[bold red]Password is incorrect.[/bold red]")
     return passwordLogin()
 
 def register():
+    print()
+    menu_split()
     username = input('Enter username: ')
     confirmedUsername = repetitiveUsername(username)
     idUser = uuid.uuid4()
@@ -970,32 +1005,101 @@ def register():
     confirmedEmail = checkEmail(email)
     confirmedEmail = repetitiveEmail(confirmedEmail)
     registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+    
 
 def leaderboard():
-    exit() #موقت
+    print()
+    menu_split()
 
-def start_menu():
-    if not check_json("Players.json"):
-        formatted_print("L", "Login")
+def initial_menu():
+    menu_split()
+    print("[hot_pink]MAIN MENU:[/hot_pink]\n")
+#    if not check_json("Players.json"):
+    formatted_print("L", "Login")
     formatted_print("R", "Register")
-    formatted_print("B", "Leaderboard")
+    formatted_print("P", "Leaderboard")
     formatted_print("E", "Exit")
-    print("\n")
     ss = input("Enter your choice: ")
     if ss == "E":
         quit()
     elif ss == "R":
-        print("\n")
-        print("-" * 60)
-        register()#موقت
+        register()
+        navigate(start_menu)
     elif ss == "L":
-        print("\n")
-        print("-" * 60)
+        menu_split()
         usernameLogin()
         passwordLogin()
-    elif ss == "B":
-        LeaderBoard()
+        navigate(start_menu)
+    elif ss == "P":
+        leaderboard()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return initial_menu()
 
+
+def second_player():
+    print()
+    menu_split()
+    print("[hot_pink]REGISTER OR LOGIN SECOND PLAYER:[/hot_pink]\n")
+    formatted_print("L", "Login")
+    formatted_print("R", "Register")
+    formatted_print("B", "Back")
+    formatted_print("E", "Exit")
+    jj = input("Enter your choice: ")
+    if jj == "R":
+        print()
+        menu_split()
+        register()
+        navigate(name_select)
+    elif jj == "L":
+        print()
+        menu_split()
+        usernameLogin()
+        passwordLogin()
+        navigate(name_select)
+    elif jj == "B":
+        print()
+        menu_split()
+        back()
+    elif jj == "E":
+        quit()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return second_player()
+
+
+def start_menu():
+    print()
+    menu_split()
+    formatted_print("N", "New Game")
+    formatted_print("B", "Back")
+    formatted_print("E", "Exit")
+    ff = input("Enter your choice: ")
+    if ff == "N":
+        navigate(second_player)
+    elif ff == "B":
+        print("\n")
+        menu_split()
+        back()
+    elif ff == "E":
+        quit()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return start_menu()
+    
+
+
+def name_select():
+    print()
+    menu_split()
+    global p1
+    global p2
+    p1 = input("Enter First Player's Name: ")
+    p1 = players[0]
+    input("Enter Second Player's Name: ")
+
+
+        
 
 
 
@@ -1003,7 +1107,12 @@ def start_menu():
 
 # def move_piece():
 
-#def main_game():
+def main_game():
+    print()
+    menu_split()
+    make_starter()
+    do_game()
+
 
 
 
@@ -1011,7 +1120,7 @@ def start_menu():
 
 
 
-start_menu()
+initial_menu()
 #main_game()
 
 ####################################################################################
