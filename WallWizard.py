@@ -2,30 +2,28 @@ import os
 import time
 ############################# ساختن وسایل اولیه
 n = 9
-m = 10
 table_piece = []
 table_wall_x = []
 table_wall_y = []
 table_wall_points = []
+walls_for_1 = 10
+walls_for_2 = 10
 def make_starter():
     global table_wall_points
     global table_wall_x
     global table_wall_y
+    global walls_for_1
+    global walls_for_2
+    global table_piece
     table_piece = [[0 for _ in range(n)] for _ in range(n)]
     table_piece[0][4] = 1
     table_piece[8][4] = 2
     table_wall_x = [[0 for _ in range(n)] for _ in range(n-1)]
     table_wall_y = [[0 for _ in range(n-1)] for _ in range(n)]
     table_wall_points = [[0 for _ in range(n-1)] for _ in range(n-1)]
+    walls_for_1 = 10
+    walls_for_2 = 10
     return
-############################## تابع چک کردن تعداد دیوار های بازیکن x
-def check_number_wall(x, table_wall):
-    ans = 0
-    for i in range(n-1):
-        for j in range(n-1):
-            if(table_wall[i][j] == x):
-                ans += 1
-    return ans
 ############################## تابع پیدا کردن مهره x
 def find_piece(x):
     for i in range(n):
@@ -145,11 +143,9 @@ def print_table():
         for j in range(n):
             print(table_piece[i][j], end = " ")
         if(i == 0): 
-            cnt = m - check_number_wall(1, table_wall_x) - check_number_wall(1, table_wall_y)
-            print(f"  >> player 1 walls : {cnt}")
+            print(f"  >> player 1 walls : {walls_for_1}")
         elif(i == 1):
-            cnt = m - check_number_wall(2, table_wall_x) - check_number_wall(2, table_wall_y)
-            print(f"  >> player 2 walls : {cnt}")
+            print(f"  >> player 2 walls : {walls_for_2}")
         else:
             print()
     return
@@ -253,6 +249,112 @@ def move_piece(x):
             print("ERROR")
             time.sleep(3)
     return
+############################## تابع دیوارگذاری
+def place_wall(x):
+    while(True):
+        os.system('cls')
+        print(f"PLAYER {x}")
+        print_table()
+        print("choose axis: x or y")
+        print("E -> EXIT")
+        print("\nCHOOSE >>> ", end = "")
+        s = input()
+        place = find_piece(x)
+        a = place[0]
+        b = place[1]
+        if(s == 'E'):
+            return 0
+        elif(s == 'x'):
+            while(True):
+                os.system('cls')
+                print(f"PLAYER {x}")
+                print_table()
+                print("choose the line: 1 to 8 (up to down)")
+                print("E -> EXIT")
+                print("\nCHOOSE >>> ", end = "")
+                l = input()
+                if l == 'E':
+                    return 0
+                elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
+                    while(True):
+                        os.system('cls')
+                        print(f"PLAYER {x}")
+                        print_table()
+                        print("choose the start of the wall: 1 to 8 (left to right)")
+                        print("E -> EXIT")
+                        print("\nCHOOSE >>> ", end = "")
+                        w = input()
+                        if w=='E':
+                            return 0
+                        elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
+                            l=int(l)-1
+                            w=int(w)-1
+                            if table_wall_x[l][w]==0 and table_wall_x[l][w+1]==0 and table_wall_points[l][w]==0:
+                                table_wall_x[l][w]=x
+                                if check_pull_wall(l,w+1,0):
+                                    table_wall_x[l][w+1]=x
+                                    table_wall_points[l][w]=1
+                                    return 1
+                                else:
+                                    table_wall_x[l][w]=0
+                                    print("You can't place a wall here :)")
+                                    time.sleep(3)
+                            else:
+                                print("You can't place a wall here :)")
+                                time.sleep(3)
+                        else:
+                            print("ERROR")
+                            time.sleep(3)
+                else:
+                    print("ERROR")
+                    time.sleep(3)
+        elif(s == 'y'):
+            while(True):
+                os.system('cls')
+                print(f"PLAYER {x}")
+                print_table()
+                print("choose the column: 1 to 8 (left to right)")
+                print("E -> EXIT")
+                print("\nCHOOSE >>> ", end = "")
+                l = input()
+                if l == 'E':
+                    return 0
+                elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
+                    while(True):
+                        os.system('cls')
+                        print(f"PLAYER {x}")
+                        print_table()
+                        print("choose the start of the wall: 1 to 8 (up to down)")
+                        print("E -> EXIT")
+                        print("\nCHOOSE >>> ", end = "")
+                        w = input()
+                        if w=='E':
+                            return 0
+                        elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
+                            l=int(l)-1
+                            w=int(w)-1
+                            if table_wall_y[w][l]==0 and table_wall_y[w+1][l]==0 and table_wall_points[w][l]==0:
+                                table_wall_y[w][l]=x
+                                if check_pull_wall(w+1,l,1):
+                                    table_wall_y[w+1][l]=x
+                                    table_wall_points[w][l]=1
+                                    return 1
+                                else:
+                                    table_wall_y[w][l]=0
+                                    print("You can't place a wall here :)")
+                                    time.sleep(3)
+                            else:
+                                print("You can't place a wall here :)")
+                                time.sleep(3)
+                        else:
+                            print("ERROR")
+                            time.sleep(3)
+                else:
+                    print("ERROR")
+                    time.sleep(3)
+        else:
+            print("ERROR")
+            time.sleep(3)
 ############################## تابع ساختن گراف جدول
 def make_gragh():
     adj = []
@@ -347,6 +449,8 @@ def check_pull_wall(a, b, x):
     else: return False    
 ############################## تابع نوبت بازیکن x
 def player_turn(x):
+    global walls_for_1
+    global walls_for_2
     while(True):
         os.system('cls')
         print(f"PLAYER {x}")
@@ -361,7 +465,24 @@ def player_turn(x):
             bool = move_piece(x)
             if(bool == 1): return 1
         elif(s == '2'):
-            return 1
+            if x==1:
+                if walls_for_1>0:
+                    if (place_wall(x)==1): 
+                        walls_for_1-=1
+                        return 1
+                else:
+                    print("You don't have any walls left!")
+                    time.sleep(3)
+                    continue
+            else:
+                if walls_for_2>0:
+                    if (place_wall(x)==1): 
+                        walls_for_2-=1
+                        return 1 
+                else:
+                    print("You don't have any walls left!")
+                    time.sleep(3)
+                    continue
         elif(s == '3'):
             return 0
         else:
@@ -449,8 +570,8 @@ def do_game():
     return
 
 make_starter()
-for i in range(0, n):
-    for j in range(0, n):
+for i in range(n):
+    for j in range(n):
         print(table_piece[i][j], end = " ")
     print()
 print()
