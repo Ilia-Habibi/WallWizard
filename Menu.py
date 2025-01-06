@@ -848,8 +848,8 @@ import bcrypt
 
 ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
 console = Console()
-print(f"[bold yellow]{ascii_art}[/bold yellow]")
-print(f"[bold violet]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold violet]")
+print(f"[bold red]{ascii_art}[/bold red]")
+print(f"[bold yellow]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold yellow]")
 
 
 
@@ -1032,6 +1032,39 @@ def initial_menu():
         navigate(start_menu)
     elif ss == "P":
         leaderboard()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return initial_menu()
+
+def second_player():
+    print()
+    menu_split()
+    print("[hot_pink]REGISTER OR LOGIN SECOND PLAYER:[/hot_pink]\n")
+    formatted_print("L", "Login")
+    formatted_print("R", "Register")
+    formatted_print("B", "Back")
+    formatted_print("E", "Exit")
+    jj = input("Enter your choice: ")
+    if jj == "R":
+        print()
+        menu_split()
+        register()
+        navigate(name_select)
+    elif jj == "L":
+        print()
+        menu_split()
+        usernameLogin()
+        passwordLogin()
+        navigate(name_select)
+    elif jj == "B":
+        print()
+        menu_split()
+        back()
+    elif jj == "E":
+        quit()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return second_player()
 
 
 def start_menu():
@@ -1042,37 +1075,16 @@ def start_menu():
     formatted_print("E", "Exit")
     ff = input("Enter your choice: ")
     if ff == "N":
-        print()
-        menu_split()
-        print("REGISTER OR LOGIN SECOND PLAYER:\n")
-        formatted_print("L", "Login")
-        formatted_print("R", "Register")
-        formatted_print("B", "Back")
-        formatted_print("E", "Exit")
-        jj = input("Enter your choice: ")
-        if jj == "R":
-            print()
-            menu_split()
-            register()
-            navigate(name_select)
-        elif jj == "L":
-            print()
-            menu_split()
-            usernameLogin()
-            passwordLogin()
-            navigate(name_select)
-        elif jj == "B":
-            print()
-            menu_split()
-            back()
-        elif jj == "E":
-            quit()
+        navigate(second_player)
     elif ff == "B":
         print("\n")
         menu_split()
         back()
     elif ff == "E":
         quit()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        return start_menu()
     
 
 
