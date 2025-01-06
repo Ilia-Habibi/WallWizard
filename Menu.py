@@ -907,7 +907,8 @@ def registerInformation(id,username,password,email):
         "user": username,
         "password": password,
         "Email": email,
-        "win" : 0
+        "win" : 0,
+        "History of games" : []
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
@@ -1005,8 +1006,6 @@ def register():
     confirmedEmail = checkEmail(email)
     confirmedEmail = repetitiveEmail(confirmedEmail)
     registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
-    print(players)
-    
 
 def leaderboard():
     print()
@@ -1890,11 +1889,21 @@ initial_menu()
 
 
 
-
-
-
-
-
+def historyOfGame():
+    playerInGame = []
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if i == players[0]:
+            playerInGame.append(information[i]["user"])
+    for i in information:
+        if i == players[1]:
+            playerInGame.append(information[i]["user"])
+    for i in information:
+        if i == players[0] or i == players[1]:
+            information[i]["History of games"].append(tuple(playerInGame))
+            with open("Players.json", 'w') as file:
+                json.dump(information,file,indent=4)
 
 
 
