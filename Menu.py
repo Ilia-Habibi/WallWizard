@@ -974,9 +974,11 @@ def usernameLogin():
         inforamtion = json.load(file)
     for i in inforamtion:
         if inforamtion[i]["user"] == username:
-            print("[bold green]username is correct.[/bold green]")
-            return
-    print("[bold red]username is incorrect.[/bold red]")
+            if i not in players:
+                players.append(i)
+                print("[bold green]username is correct.[/bold green]")
+                return
+    print("[bold red]username is incorrect or You have already logged in with this username.[/bold red]")
     return usernameLogin()
 
 def passwordLogin():
@@ -986,8 +988,6 @@ def passwordLogin():
     for i in information:
         if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
             print("[bold green]You are logged in to your account[/bold green]")
-            if i not in players:
-                players.append(i)
             return
     print("[bold red]Password is incorrect.[/bold red]")
     return passwordLogin()
@@ -1005,6 +1005,7 @@ def register():
     confirmedEmail = checkEmail(email)
     confirmedEmail = repetitiveEmail(confirmedEmail)
     registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+    print(players)
     
 
 def leaderboard():
