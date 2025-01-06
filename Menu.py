@@ -849,7 +849,7 @@ import bcrypt
 ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
 console = Console()
 print(f"[bold yellow]{ascii_art}[/bold yellow]")
-print(f"[bold violet]Hi players! \nWelcome to Quoridor! \n[bold violet]")
+print(f"[bold violet]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold violet]")
 
 
 
@@ -911,6 +911,8 @@ def registerInformation(id,username,password,email):
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
+    if str(id) not in players:
+        players.append(str(id))
 
     print('[bold green]signup is complete.[/bold green]')
 
@@ -962,6 +964,9 @@ def quit():
     exit()
 
 
+players = []
+#def player_indicate():
+
 
 def usernameLogin():
     username = input("Username: ")
@@ -981,12 +986,14 @@ def passwordLogin():
     for i in information:
         if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
             print("[bold green]You are logged in to your account[/bold green]")
+            if i not in players:
+                players.append(i)
             return
     print("[bold red]Password is incorrect.[/bold red]")
     return passwordLogin()
 
 def register():
-    print("\n")
+    print()
     menu_split()
     username = input('Enter username: ')
     confirmedUsername = repetitiveUsername(username)
@@ -998,14 +1005,15 @@ def register():
     confirmedEmail = checkEmail(email)
     confirmedEmail = repetitiveEmail(confirmedEmail)
     registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+    
 
 def leaderboard():
-    print("\n")
+    print()
     menu_split()
 
 def initial_menu():
     menu_split()
-    print("MAIN MENU:\n")
+    print("[hot_pink]MAIN MENU:[/hot_pink]\n")
 #    if not check_json("Players.json"):
     formatted_print("L", "Login")
     formatted_print("R", "Register")
@@ -1027,14 +1035,14 @@ def initial_menu():
 
 
 def start_menu():
-    print("\n")
+    print()
     menu_split()
     formatted_print("N", "New Game")
     formatted_print("B", "Back")
     formatted_print("E", "Exit")
     ff = input("Enter your choice: ")
     if ff == "N":
-        print("\n")
+        print()
         menu_split()
         print("REGISTER OR LOGIN SECOND PLAYER:\n")
         formatted_print("L", "Login")
@@ -1043,18 +1051,18 @@ def start_menu():
         formatted_print("E", "Exit")
         jj = input("Enter your choice: ")
         if jj == "R":
-            print("\n")
+            print()
             menu_split()
             register()
             navigate(name_select)
         elif jj == "L":
-            print("\n")
+            print()
             menu_split()
             usernameLogin()
             passwordLogin()
             navigate(name_select)
         elif jj == "B":
-            print("\n")
+            print()
             menu_split()
             back()
         elif jj == "E":
@@ -1065,13 +1073,17 @@ def start_menu():
         back()
     elif ff == "E":
         quit()
+    
 
 
 def name_select():
-    print("\n")
+    print()
     menu_split()
-    # input("Enter First Player's Name: ")
-    # input("Enter Second Player's Name: ")
+    global p1
+    global p2
+    p1 = input("Enter First Player's Name: ")
+    p1 = players[0]
+    input("Enter Second Player's Name: ")
 
 
         
@@ -1083,7 +1095,7 @@ def name_select():
    # def move_piece():
 
 def main_game():
-    print("\n")
+    print()
     menu_split()
     make_starter()
     do_game()
