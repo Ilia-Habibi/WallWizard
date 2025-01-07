@@ -1011,13 +1011,21 @@ def register():
         return register()
 
 def LeaderBoard():
+    print()
+    menu_split()
     point = {}
     with open("Players.json", 'r') as file:
         information = json.load(file)
     for id in information:
         point[information[id]["user"]] = information[id]["win"]
     point = dict(sorted(point.items(),key=lambda item: item[1],reverse=True))
-    print(point)
+    point = list(point.items())
+    for i in range(len(point)):
+        for j in range(1):
+            if i == 0:
+                print(f'[bold bright_yellow]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
+            else:
+                print(f'[bold bright_white]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_white]')
 
 
 def historyOfGame():
@@ -1926,17 +1934,4 @@ initial_menu()
 
 
 
-def LeaderBoard():
-    point = {}
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for id in information:
-        point[information[id]["user"]] = information[id]["win"]
-    point = dict(sorted(point.items(),key=lambda item: item[1],reverse=True))
-    point = list(point.items())
-    for i in range(len(point)):
-        for j in range(1):
-            if i == 0:
-                print(f'[bold bright_yellow]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
-            else:
-                print(f'[bold bright_white]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_white]')
+
