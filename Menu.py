@@ -1007,9 +1007,32 @@ def register():
     confirmedEmail = repetitiveEmail(confirmedEmail)
     registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
 
-def leaderboard():
-    print()
-    menu_split()
+def LeaderBoard():
+    point = {}
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for id in information:
+        point[information[id]["user"]] = information[id]["win"]
+    point = dict(sorted(point.items(),key=lambda item: item[1],reverse=True))
+    print(point)
+
+
+def historyOfGame():
+    playerInGame = []
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if i == players[0]:
+            playerInGame.append(information[i]["user"])
+    for i in information:
+        if i == players[1]:
+            playerInGame.append(information[i]["user"])
+    for i in information:
+        if i == players[0] or i == players[1]:
+            information[i]["History of games"].append(tuple(playerInGame))
+            with open("Players.json", 'w') as file:
+                json.dump(information,file,indent=4)
+
 
 def initial_menu():
     menu_split()
@@ -1018,6 +1041,7 @@ def initial_menu():
     formatted_print("L", "Login")
     formatted_print("R", "Register")
     formatted_print("P", "Leaderboard")
+    formatted_print("H", "History")
     formatted_print("E", "Exit")
     ss = input("Enter your choice: ")
     if ss == "E":
@@ -1031,7 +1055,9 @@ def initial_menu():
         passwordLogin()
         navigate(start_menu)
     elif ss == "P":
-        leaderboard()
+        LeaderBoard()
+    elif ss == "H":
+        historyOfGame() # bug here
     else:
         print("[bold red]Invalid Choice[/bold red]")
         return initial_menu()
@@ -1095,8 +1121,7 @@ def name_select():
     global p1
     global p2
     p1 = input("Enter First Player's Name: ")
-    p1 = players[0]
-    input("Enter Second Player's Name: ")
+    p2 = input("Enter Second Player's Name: ")
 
 
         
@@ -1889,21 +1914,6 @@ initial_menu()
 
 
 
-def historyOfGame():
-    playerInGame = []
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for i in information:
-        if i == players[0]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
-        if i == players[1]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
-        if i == players[0] or i == players[1]:
-            information[i]["History of games"].append(tuple(playerInGame))
-            with open("Players.json", 'w') as file:
-                json.dump(information,file,indent=4)
 
 
 
@@ -1912,11 +1922,4 @@ def historyOfGame():
 
 
 
-def LeaderBoard():
-    point = {}
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for id in information:
-        point[information[id]["user"]] = information[id]["win"]
-    point = dict(sorted(point.items(),key=lambda item: item[1],reverse=True))
-    print(point)
+
