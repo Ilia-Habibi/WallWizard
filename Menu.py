@@ -997,15 +997,18 @@ def register():
     print()
     menu_split()
     username = input('Enter username: ')
-    confirmedUsername = repetitiveUsername(username)
-    idUser = uuid.uuid4()
-    password = input('Enter password: ')
-    confirmedPassword = checkPassword(password)
-    hashPassword = hashedPassword(confirmedPassword)
-    email = input('Enter Email: ')
-    confirmedEmail = checkEmail(email)
-    confirmedEmail = repetitiveEmail(confirmedEmail)
-    registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+    if len(username)>0:
+        confirmedUsername = repetitiveUsername(username)
+        idUser = uuid.uuid4()
+        password = input('Enter password: ')
+        confirmedPassword = checkPassword(password)
+        hashPassword = hashedPassword(confirmedPassword)
+        email = input('Enter Email: ')
+        confirmedEmail = checkEmail(email)
+        confirmedEmail = repetitiveEmail(confirmedEmail)
+        registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+    else:
+        return register()
 
 def LeaderBoard():
     point = {}
@@ -1923,3 +1926,17 @@ initial_menu()
 
 
 
+def LeaderBoard():
+    point = {}
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for id in information:
+        point[information[id]["user"]] = information[id]["win"]
+    point = dict(sorted(point.items(),key=lambda item: item[1],reverse=True))
+    point = list(point.items())
+    for i in range(len(point)):
+        for j in range(1):
+            if i == 0:
+                print(f'[bold bright_yellow]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
+            else:
+                print(f'[bold bright_white]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_white]')
