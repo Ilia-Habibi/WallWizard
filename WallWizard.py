@@ -276,6 +276,7 @@ def place_wall(x):
                 if l == 'E':
                     return 0
                 elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
+                    l=int(l)-1
                     while(True):
                         os.system('cls')
                         print(f"PLAYER {x}")
@@ -287,12 +288,11 @@ def place_wall(x):
                         if w=='E':
                             return 0
                         elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
-                            l=int(l)-1
                             w=int(w)-1
                             if table_wall_x[l][w]==0 and table_wall_x[l][w+1]==0 and table_wall_points[l][w]==0:
-                                table_wall_x[l][w]=x
+                                table_wall_x[l][w]=1
                                 if check_pull_wall(l,w+1,0):
-                                    table_wall_x[l][w+1]=x
+                                    table_wall_x[l][w+1]=1
                                     table_wall_points[l][w]=1
                                     return 1
                                 else:
@@ -320,6 +320,7 @@ def place_wall(x):
                 if l == 'E':
                     return 0
                 elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
+                    l=int(l)-1
                     while(True):
                         os.system('cls')
                         print(f"PLAYER {x}")
@@ -331,12 +332,12 @@ def place_wall(x):
                         if w=='E':
                             return 0
                         elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
-                            l=int(l)-1
+                            
                             w=int(w)-1
                             if table_wall_y[w][l]==0 and table_wall_y[w+1][l]==0 and table_wall_points[w][l]==0:
-                                table_wall_y[w][l]=x
+                                table_wall_y[w][l]=1
                                 if check_pull_wall(w+1,l,1):
-                                    table_wall_y[w+1][l]=x
+                                    table_wall_y[w+1][l]=1
                                     table_wall_points[w][l]=1
                                     return 1
                                 else:
