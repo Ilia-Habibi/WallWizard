@@ -458,6 +458,7 @@ def player_turn(x):
         print_table()
         formatted_print("\nM", "Move Piece")
         formatted_print("P", "Place Wall")
+        formatted_print("B", "Back")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
         if(s == 'M'): 
@@ -482,8 +483,10 @@ def player_turn(x):
                     print("[bold red]You don't have any walls left![/bold red]")
                     time.sleep(2)
                     continue
-        elif(s == 'E'):
+        elif(s == 'B'):
             return 0
+        elif(s == 'E'):
+            quit()
         else:
             print("[bold red]Invalid Choice[/bold red]")
             time.sleep(2)
