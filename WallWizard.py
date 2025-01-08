@@ -576,9 +576,9 @@ for i in range(n):
     for j in range(n):
         print(table_piece[i][j], end = " ")
     print()
-# print()
-# do_game()
-# =======
+print()
+do_game()
+=======
 
 
 
