@@ -979,8 +979,7 @@ def registerInformation(id,username,password,email):
         "user": username,
         "password": password,
         "Email": email,
-        "win" : 0,
-        "History of games" : []
+        "win" : 0
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
@@ -1112,9 +1111,14 @@ def historyOfGame():
             playerInGame.append(information[i]["user"])
     for i in information:
         if i == players[0] or i == players[1]:
-            information[i]["History of games"].append(tuple(playerInGame))
+            information["History of games"].append(tuple(playerInGame))
             with open("Players.json", 'w') as file:
                 json.dump(information,file,indent=4)
+
+def printHistoryGame():
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    print(information["History of games"])
 
 
 def initial_menu():
@@ -1140,7 +1144,7 @@ def initial_menu():
     elif ss == "P":
         LeaderBoard()
     elif ss == "H":
-        historyOfGame() # bug here
+        printHistoryGame() 
     else:
         print("[bold red]Invalid Choice[/bold red]")
         return initial_menu()
