@@ -1,5 +1,11 @@
-
+import json
+import re
+import uuid
+import pyfiglet
 import os
+from rich import print
+from rich.console import Console
+import bcrypt
 import time
 ############################# ساختن وسایل اولیه
 n = 9
@@ -144,9 +150,9 @@ def print_table():
         for j in range(n):
             print(table_piece[i][j], end = " ")
         if(i == 0): 
-            print(f"  >> player 1 walls : {walls_for_1}")
+            print(f"  [bold yellow]>>[/bold yellow] [bold light_green]player 1 walls : {walls_for_1}[/bold light_green]")
         elif(i == 1):
-            print(f"  >> player 2 walls : {walls_for_2}")
+            print(f"  [bold yellow]>>[/bold yellow] [bold red]player 2 walls : {walls_for_1}[/bold red]")
         else:
             print()
     return
@@ -156,10 +162,9 @@ def move_piece(x):
         os.system('cls')
         print(f"PLAYER {x}")
         print_table()
-        print("choose: \n0 1 2\n3 P 5\n6 7 8")
-        print("E -> EXIT")
-        print("\nCHOOSE >>> ", end = "")
-        s = input()
+        print("\nEnter number to move piece:[#FFD580] \n0 1 2\n3 [white]P[/white] 5\n6 7 8[/#FFD580]")
+        formatted_print("\nB", "Back\n")
+        s = input("Enter your choice: ")
         place = find_piece(x)
         check = check_move(x)
         a = place[0]
@@ -244,49 +249,45 @@ def move_piece(x):
             else:
                 print("You cannot move in this direction :)")
                 time.sleep(3)
-        elif(s == 'E'):
+        elif(s == 'B'):
             return 0
         else:
             print("ERROR")
             time.sleep(3)
-    return
 ############################## تابع دیوارگذاری
 def place_wall(x):
     while(True):
         os.system('cls')
-        print(f"PLAYER {x}")
+        print(f"PLAYER [white]{x}[/white]\n")
         print_table()
-        print("choose axis: x or y")
-        print("E -> EXIT")
-        print("\nCHOOSE >>> ", end = "")
-        s = input()
+        print("\nChoose Axis: x or y")
+        formatted_print("B", "Back\n")
+        s = input("Enter your choice: ")
         place = find_piece(x)
         a = place[0]
         b = place[1]
-        if(s == 'E'):
+        if(s == 'B'):
             return 0
         elif(s == 'x'):
             while(True):
                 os.system('cls')
                 print(f"PLAYER {x}")
                 print_table()
-                print("choose the line: 1 to 8 (up to down)")
-                print("E -> EXIT")
-                print("\nCHOOSE >>> ", end = "")
-                l = input()
-                if l == 'E':
+                print("Choose The Line: 1 to 8 (Up to Down)")
+                formatted_print("B", "Back\n")
+                l = input("Enter your choice: ")
+                if l == 'B':
                     return 0
                 elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
                     l=int(l)-1
                     while(True):
                         os.system('cls')
-                        print(f"PLAYER {x}")
+                        print(f"PLAYER {x}\n")
                         print_table()
-                        print("choose the start of the wall: 1 to 8 (left to right)")
-                        print("E -> EXIT")
-                        print("\nCHOOSE >>> ", end = "")
-                        w = input()
-                        if w=='E':
+                        print("\nChoose The Start Of The Wall: 1 to 8 (Left to Right)")
+                        formatted_print("B", "Back\n")
+                        w = input("Enter your choice: ")
+                        if w=='B':
                             return 0
                         elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
                             w=int(w)-1
@@ -304,33 +305,31 @@ def place_wall(x):
                                 print("You can't place a wall here :)")
                                 time.sleep(3)
                         else:
-                            print("ERROR")
+                            print("[bold red]Invalid Choice[/bold red]")
                             time.sleep(3)
                 else:
-                    print("ERROR")
+                    print("[bold red]Invalid Choice[/bold red]")
                     time.sleep(3)
         elif(s == 'y'):
             while(True):
                 os.system('cls')
-                print(f"PLAYER {x}")
+                print(f"PLAYER {x}\n")
                 print_table()
-                print("choose the column: 1 to 8 (left to right)")
-                print("E -> EXIT")
-                print("\nCHOOSE >>> ", end = "")
-                l = input()
-                if l == 'E':
+                print("Choose The Column: 1 to 8 (Left to Right)")
+                formatted_print("B", "Back\n")
+                l = input("Enter your choice: ")
+                if l == 'B':
                     return 0
                 elif l=='1' or l=='2' or l=='3' or l=='4' or l=='5' or l=='6' or l=='7' or l=='8':
                     l=int(l)-1
                     while(True):
                         os.system('cls')
-                        print(f"PLAYER {x}")
+                        print(f"PLAYER {x}\n")
                         print_table()
                         print("choose the start of the wall: 1 to 8 (up to down)")
-                        print("E -> EXIT")
-                        print("\nCHOOSE >>> ", end = "")
-                        w = input()
-                        if w=='E':
+                        formatted_print("B", "Back\n")
+                        w = input("Enter your choice: ")
+                        if w=='B':
                             return 0
                         elif w=='1' or w=='2' or w=='3' or w=='4' or w=='5' or w=='6' or w=='7' or w=='8':
                             
@@ -349,13 +348,13 @@ def place_wall(x):
                                 print("You can't place a wall here :)")
                                 time.sleep(3)
                         else:
-                            print("ERROR")
+                            print("[bold red]Invalid Choice[/bold red]")
                             time.sleep(3)
                 else:
-                    print("ERROR")
+                    print("[bold red]Invalid Choice[/bold red]")
                     time.sleep(3)
         else:
-            print("ERROR")
+            print("[bold red]Invalid Choice[/bold red]")
             time.sleep(3)
 ############################## تابع ساختن گراف جدول
 def make_gragh():
@@ -455,26 +454,24 @@ def player_turn(x):
     global walls_for_2
     while(True):
         os.system('cls')
-        print(f"PLAYER {x}")
+        print(f"[yellow]PLAYER {x}'s TURN[/yellow]\n")
         print_table()
-        print("\nSelect the move:")
-        print("1-> Move piece")
-        print("2-> Put a wall")
-        print("3-> Exit game")
-        print("\nCHOOSE >>> ", end = "")
-        s = input()
-        if(s == '1'): 
+        formatted_print("\nM", "Move Piece")
+        formatted_print("P", "Place Wall")
+        formatted_print("E", "Exit\n")
+        s = input("Enter your choice: ")
+        if(s == 'M'): 
             bool = move_piece(x)
             if(bool == 1): return 1
-        elif(s == '2'):
+        elif(s == 'P'):
             if x==1:
                 if walls_for_1>0:
                     if (place_wall(x)==1): 
                         walls_for_1-=1
                         return 1
                 else:
-                    print("You don't have any walls left!")
-                    time.sleep(3)
+                    print("[bold red]You don't have any walls left![/bold red]")
+                    time.sleep(2)
                     continue
             else:
                 if walls_for_2>0:
@@ -482,15 +479,14 @@ def player_turn(x):
                         walls_for_2-=1
                         return 1 
                 else:
-                    print("You don't have any walls left!")
-                    time.sleep(3)
+                    print("[bold red]You don't have any walls left![/bold red]")
+                    time.sleep(2)
                     continue
-        elif(s == '3'):
+        elif(s == 'E'):
             return 0
         else:
-            print("EROOR")
-            time.sleep(3)
-    return
+            print("[bold red]Invalid Choice[/bold red]")
+            time.sleep(2)
 ############################## تابع چک کردن اتمام بازی و خروجی برنده
 def check_end_game():
     bool_1 = False
@@ -507,33 +503,31 @@ def check_end_game():
         return 2
     else:
         return 0
-    return
 ############################## تابع خروجی برنده و آپشن ادامه و خروج
 def print_end_game(x):
     while(True):
         os.system('cls')
-        print(f"PLAYER {x} WIIIIN :)")
-        print("1-> New Game")
-        print("2-> Exit Game")
-        print("\nCHOOSE >>> ", end = "")
-        s = input()
-        if(s == '1'): return 1
-        elif(s == '2'): return 2
+        print(f"PLAYER {x} WIIIIN :)\n")
+        formatted_print("N", "New Game")
+        formatted_print("E", "Exit\n")
+        s = input("Enter your choice: ")
+        if(s == 'N'): return 1
+        elif(s == 'E'): return 2
         else:
-            print("ERROR") 
-            time.sleep(3)
-    return
+            print("[bold red]Invalid Choice[/bold red]") 
+            time.sleep(2)
 ############################## تابع انجام بازی نوبتی
 def do_game():
     while(True):
         os.system('cls')
         make_starter()
-        print("Who starts first?")
-        print("1_PLAYER 1")
-        print("2_PLAYER 2")
-        print("3_EXIT")
-        print("\nCHOOSE >>> ", end = "")
-        s = input()
+        print("[hot_pink]Who starts first?[/hot_pink]")
+        print()
+        formatted_print("1", "[yellow]PLAYER 1[/yellow]")
+        formatted_print("2", "[yellow]PLAYER 2[/yellow]")
+        formatted_print("B", "Back")
+        formatted_print("E", "Exit\n")
+        s = input("Enter your choice: ")
         if(s == '1'):
             x = 1
             while(True):
@@ -564,22 +558,17 @@ def do_game():
                     cnt = player_turn(2)
                     if(cnt == 0): break
                 x += 1
-        elif(s == '3'):
-            return
+        elif(s == 'B'):
+            back()
+        elif s == 'E':
+            quit()
         else:
             print("ERROR")
             time.sleep(3)
-    return
 
-make_starter()
-for i in range(n):
-    for j in range(n):
-        print(table_piece[i][j], end = " ")
-    print()
-print()
-do_game()
-=======
 
+#print()
+#do_game()
 
 
 
@@ -907,21 +896,12 @@ do_game()
 
 
 
-import json
-import re
-import uuid
-import pyfiglet
-import os
-from rich import print
-from rich.console import Console
-import bcrypt
 
 
 
-ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
-console = Console()
-print(f"[bold red]{ascii_art}[/bold red]")
-print(f"[bold yellow]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold yellow]")
+
+
+
 
 
 
@@ -1009,7 +989,6 @@ menu_history =[]
 
 
 
-    # option showcase format
 def formatted_print(input1, input2):
     print(f"{input1} ==> {input2}")
 
@@ -1061,6 +1040,7 @@ def passwordLogin():
     for i in information:
         if bcrypt.checkpw(password.encode('utf-8'), information[i]["password"].encode('utf-8')):
             print("[bold green]You are logged in to your account[/bold green]")
+            time.sleep(2)
             return
     print("[bold red]Password is incorrect.[/bold red]")
     return passwordLogin()
@@ -1079,12 +1059,13 @@ def register():
         confirmedEmail = checkEmail(email)
         confirmedEmail = repetitiveEmail(confirmedEmail)
         registerInformation(idUser,confirmedUsername,hashPassword,confirmedEmail)
+        time.sleep(2)
     else:
         return register()
 
 def LeaderBoard():
-    print()
-    menu_split()
+    os.system('cls')
+    print("[hot_pink]WallWizard League Ranking:[/hot_pink]\n")
     point = {}
     with open("Players.json", 'r') as file:
         information = json.load(file)
@@ -1095,9 +1076,24 @@ def LeaderBoard():
     for i in range(len(point)):
         for j in range(1):
             if i == 0:
-                print(f'[bold bright_yellow]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
+                print(f'[bold bright_yellow]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
+            elif i == 1:
+                print(f'[bold #D3D3D3]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold #D3D3D3]')
+            elif i == 2:
+                print(f'[bold #CD7F32]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold #CD7F32]')
             else:
-                print(f'[bold bright_white]{i+1}. {point[i][j]} : {point[i][j+1]}[/bold bright_white]')
+                print(f' [bright_white]{i+1}. {point[i][j]} : {point[i][j+1]}[/bright_white]')
+    print()
+    menu_split()
+    formatted_print("B", "Back")
+    formatted_print("E", "Exit\n")
+    jj = input("Enter your choice: ")
+    if jj == "B":
+        back()
+    elif jj == "E":
+        quit()
+
+
 
 
 def historyOfGame():
@@ -1118,14 +1114,17 @@ def historyOfGame():
 
 
 def initial_menu():
+    os.system('cls')
+    ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
+    print(f"[bold red]{ascii_art}[/bold red]")
+    print(f"[bold yellow]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold yellow]")
     menu_split()
     print("[hot_pink]MAIN MENU:[/hot_pink]\n")
-#    if not check_json("Players.json"):
     formatted_print("L", "Login")
     formatted_print("R", "Register")
     formatted_print("P", "Leaderboard")
     formatted_print("H", "History")
-    formatted_print("E", "Exit")
+    formatted_print("E", "Exit\n")
     ss = input("Enter your choice: ")
     if ss == "E":
         quit()
@@ -1138,17 +1137,17 @@ def initial_menu():
         passwordLogin()
         navigate(start_menu)
     elif ss == "P":
-        LeaderBoard()
+        navigate(LeaderBoard)
     elif ss == "H":
         historyOfGame() # bug here
     else:
         print("[bold red]Invalid Choice[/bold red]")
+        time.sleep(1.5)
         return initial_menu()
 
 
 def second_player():
-    print()
-    menu_split()
+    os.system('cls')
     print("[hot_pink]REGISTER OR LOGIN SECOND PLAYER:[/hot_pink]\n")
     formatted_print("L", "Login")
     formatted_print("R", "Register")
@@ -1157,7 +1156,6 @@ def second_player():
     jj = input("Enter your choice: ")
     if jj == "R":
         print()
-        menu_split()
         register()
         navigate(name_select)
     elif jj == "L":
@@ -1167,19 +1165,18 @@ def second_player():
         passwordLogin()
         navigate(name_select)
     elif jj == "B":
-        print()
-        menu_split()
         back()
     elif jj == "E":
         quit()
     else:
         print("[bold red]Invalid Choice[/bold red]")
+        time.sleep(1)
         return second_player()
 
 
 def start_menu():
+    os.system('cls')
     print()
-    menu_split()
     formatted_print("N", "New Game")
     formatted_print("B", "Back")
     formatted_print("E", "Exit")
@@ -1199,26 +1196,17 @@ def start_menu():
 
 
 def name_select():
-    print()
-    menu_split()
+    os.system('cls')
+    print("[hot_pink]ENTER IN-GAME NAMES:[/hot_pink]\n")
     global p1
     global p2
     p1 = input("Enter First Player's Name: ")
     p2 = input("Enter Second Player's Name: ")
+    navigate(main_game)
 
 
-        
-
-
-
-#  def print_table():
-
-# def move_piece():
 
 def main_game():
-    print()
-    menu_split()
-    make_starter()
     do_game()
 
 
@@ -1229,10 +1217,6 @@ def main_game():
 
 
 initial_menu()
-#main_game()
-
-####################################################################################
-#login
 
 
 
