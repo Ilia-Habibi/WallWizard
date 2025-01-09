@@ -570,9 +570,6 @@ def do_game():
             time.sleep(3)
 
 
-#print()
-#do_game()
-
 
 # signup FUNCTIONS
 
@@ -648,12 +645,6 @@ menu_history =[]
 
 # MENU OPTIONS FUNCTIONS
 
- #   def check_json(file_path):
-  #      if not os.path.exists(file_path):
-#         print(f"File '{file_path}' does not exist.")
-#            return True
-#        return os.path.getsize(file_path) == 0
-#    file_path = "Players.json"
 
 
 
@@ -828,7 +819,6 @@ def second_player():
     formatted_print("E", "Exit")
     jj = input("Enter your choice: ")
     if jj == "R":
-        print()
         register()
         navigate(name_select)
     elif jj == "L":
