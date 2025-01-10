@@ -753,28 +753,26 @@ def LeaderBoard():
         quit()
 
 
-
-
 def historyOfGame():
     playerInGame = []
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for i in information:
+    with open("Players.json", 'r') as file2:
+        information2 = json.load(file2)
+    for i in information2:
         if i == players[0]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
+            playerInGame.append(information2[i]["user"])
+    for i in information2:
         if i == players[1]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
-        if i == players[0] or i == players[1]:
-            information["History of games"].append(tuple(playerInGame))
-            with open("Players.json", 'w') as file:
-                json.dump(information,file,indent=4)
+            playerInGame.append(information2[i]["user"])
+    with open("history.json", 'r') as file:
+        information = json.load(file)
+    information.append(playerInGame)
+    with open("history.json", 'w') as file:
+        json.dump(information,file,indent=4)
 
 def printHistoryGame():
-    with open("Players.json", 'r') as file:
+    with open("history.json", 'r') as file:
         information = json.load(file)
-    print(information["History of games"])
+    print(information)
 
 
 def initial_menu():
