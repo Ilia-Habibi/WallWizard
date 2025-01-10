@@ -150,9 +150,9 @@ def print_table():
         for j in range(n):
             print(table_piece[i][j], end = " ")
         if(i == 0): 
-            print(f"  [bold yellow]>>[/bold yellow] [bold light_green]player 1 walls : {walls_for_1}[/bold light_green]")
+            print(f"  [bold yellow]>>[/bold yellow] [bold light_green]{p1} walls : {walls_for_1}[/bold light_green]")
         elif(i == 1):
-            print(f"  [bold yellow]>>[/bold yellow] [bold red]player 2 walls : {walls_for_2}[/bold red]")
+            print(f"  [bold yellow]>>[/bold yellow] [bold red]{p2} walls : {walls_for_2}[/bold red]")
         else:
             print()
     return
@@ -454,7 +454,10 @@ def player_turn(x):
     global walls_for_2
     while(True):
         os.system('cls')
-        print(f"[yellow]PLAYER {x}'s TURN[/yellow]\n")
+        if x==1:
+            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+        elif x==2:
+            print(f"[yellow]{p2}'s TURN[/yellow]\n")
         print_table()
         formatted_print("\nM", "Move Piece")
         formatted_print("P", "Place Wall")
@@ -508,9 +511,20 @@ def check_end_game():
         return 0
 ############################## تابع خروجی برنده و آپشن ادامه و خروج
 def print_end_game(x):
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
     while(True):
         os.system('cls')
-        print(f"PLAYER {x} WIIIIN :)\n")
+        if x == 1:
+            print(f"{p1} WIIIIN :)\n")
+            for i in information:
+                if p1 == information[i]["user"]:
+                    information[i]["win"]+=1
+        elif x == 2:
+            print(f"{p2} WIIIIN :)\n")
+            for i in information:
+                if p2 == information[i]["user"]:
+                    information[i]["win"]+=1
         formatted_print("N", "New Game")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
@@ -526,8 +540,8 @@ def do_game():
         make_starter()
         print("[hot_pink]Who starts first?[/hot_pink]")
         print()
-        formatted_print("1", "[yellow]PLAYER 1[/yellow]")
-        formatted_print("2", "[yellow]PLAYER 2[/yellow]")
+        formatted_print("1", f"[yellow]{p1}[/yellow]")
+        formatted_print("2", f"[yellow]{p2}[/yellow]")
         formatted_print("B", "Back")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
@@ -857,12 +871,17 @@ def start_menu():
 
 
 def name_select():
-    os.system('cls')
-    print("[hot_pink]ENTER IN-GAME NAMES:[/hot_pink]\n")
     global p1
     global p2
-    p1 = input("Enter First Player's Name: ")
-    p2 = input("Enter Second Player's Name: ")
+    os.system('cls')
+    print("[hot_pink]ENTER IN-GAME NAMES:[/hot_pink]\n")
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if i == players[0]:
+            p1 = information[i]["user"]
+        elif i == players[1]:
+            p2 = information[i]["user"]
     navigate(main_game)
 
 
