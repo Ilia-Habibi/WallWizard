@@ -147,14 +147,28 @@ def check_move(x):
 ############################## تابع نمایش جدول
 def print_table():
     for i in range(n):
+        print(" ", end="")
         for j in range(n):
-            print(table_piece[i][j], end = " ")
+            if table_piece[i][j]==1:
+                print("[bold light_green]1[/bold light_green]", end=" ")
+            elif table_piece[i][j]==2:
+                print("[bold red]2[/bold red]", end=" ")
+            else:
+                print(table_piece[i][j], end = " ")
+            if j<8:
+                print("[bold yellow]|[/bold yellow]" if table_wall_y[i][j]==1 else "|", end=" ")
         if(i == 0): 
             print(f"  [bold yellow]>>[/bold yellow] [bold light_green]{p1} walls : {walls_for_1}[/bold light_green]")
         elif(i == 1):
             print(f"  [bold yellow]>>[/bold yellow] [bold red]{p2} walls : {walls_for_2}[/bold red]")
         else:
             print()
+        if i<8:
+            for j in range(n):
+                print("[bold yellow]---[/bold yellow]" if table_wall_x[i][j]==1 else "---", end="")
+                if j<8:
+                    print("[bold yellow]+[/bold yellow]" if table_wall_points[i][j]==1 else "+", end="")
+        print()
     return
 ############################## تابع حرکت مهره x
 def move_piece(x):
