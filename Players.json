@@ -19,5 +19,19 @@
         "Email": "q@q.vb",
         "win": 8,
         "History of games": []
+    },
+    "c4ed2443-2076-4805-af6c-ebeec05ede8d": {
+        "user": "ILIA",
+        "password": "$2b$12$HgfgrxpSeuMb.l7eZFc7weBJeJnj4/QMLC0iB7gHKsvgzkAlO27Qm",
+        "Email": "ilia@example.com",
+        "win": 0,
+        "History of games": []
+    },
+    "7c863142-20de-4d53-ac5d-724f6b8e9fe4": {
+        "user": "ILIA2",
+        "password": "$2b$12$1zqUYzgpCysqdtYfG7SNFeMKsXbC9KfoyJLw5Bz2TTHXSvCMb1v3u",
+        "Email": "ilia2@example.com",
+        "win": 0,
+        "History of games": []
     }
 }
