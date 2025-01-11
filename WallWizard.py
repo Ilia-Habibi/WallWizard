@@ -150,9 +150,9 @@ def print_table():
         for j in range(n):
             print(table_piece[i][j], end = " ")
         if(i == 0): 
-            print(f"  [bold yellow]>>[/bold yellow] [bold light_green]player 1 walls : {walls_for_1}[/bold light_green]")
+            print(f"  [bold yellow]>>[/bold yellow] [bold light_green]{p1} walls : {walls_for_1}[/bold light_green]")
         elif(i == 1):
-            print(f"  [bold yellow]>>[/bold yellow] [bold red]player 2 walls : {walls_for_2}[/bold red]")
+            print(f"  [bold yellow]>>[/bold yellow] [bold red]{p2} walls : {walls_for_2}[/bold red]")
         else:
             print()
     return
@@ -160,7 +160,10 @@ def print_table():
 def move_piece(x):
     while(True):
         os.system('cls')
-        print(f"PLAYER {x}")
+        if x==1:
+            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+        elif x==2:
+            print(f"[yellow]{p2}'s TURN[/yellow]\n")
         print_table()
         print("\nEnter number to move piece:[#FFD580] \n0 1 2\n3 [white]P[/white] 5\n6 7 8[/#FFD580]")
         formatted_print("\nB", "Back\n")
@@ -176,7 +179,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '1'):
             if(check[1] == True):
                 if(table_piece[a-1][b] == 0):
@@ -188,7 +191,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '2'):
             if(check[2] == True):
                 table_piece[a][b] = 0
@@ -196,7 +199,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '3'):
             if(check[3] == True):
                 if(table_piece[a][b-1] == 0):
@@ -208,7 +211,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '5'):
             if(check[5] == True):
                 if(table_piece[a][b+1] == 0):
@@ -220,7 +223,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '6'):
             if(check[6] == True):
                 table_piece[a][b] = 0
@@ -228,7 +231,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '7'):
             if(check[7] == True):
                 if(table_piece[a+1][b] == 0):
@@ -240,7 +243,7 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == '8'):
             if(check[8] == True):
                 table_piece[a][b] = 0
@@ -248,17 +251,20 @@ def move_piece(x):
                 return 1
             else:
                 print("You cannot move in this direction :)")
-                time.sleep(3)
+                time.sleep(2)
         elif(s == 'B'):
             return 0
         else:
-            print("ERROR")
-            time.sleep(3)
+            print("[bold red]Invalid Choice[/bold red]")
+            time.sleep(1.5)
 ############################## تابع دیوارگذاری
 def place_wall(x):
     while(True):
         os.system('cls')
-        print(f"PLAYER [white]{x}[/white]\n")
+        if x==1:
+            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+        elif x==2:
+            print(f"[yellow]{p2}'s TURN[/yellow]\n")
         print_table()
         print("\nChoose Axis: x or y")
         formatted_print("B", "Back\n")
@@ -271,7 +277,10 @@ def place_wall(x):
         elif(s == 'x'):
             while(True):
                 os.system('cls')
-                print(f"PLAYER {x}")
+                if x==1:
+                    print(f"[yellow]{p1}'s TURN[/yellow]\n")
+                elif x==2:
+                    print(f"[yellow]{p2}'s TURN[/yellow]\n")
                 print_table()
                 print("Choose The Line: 1 to 8 (Up to Down)")
                 formatted_print("B", "Back\n")
@@ -282,7 +291,10 @@ def place_wall(x):
                     l=int(l)-1
                     while(True):
                         os.system('cls')
-                        print(f"PLAYER {x}\n")
+                        if x==1:
+                            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+                        elif x==2:
+                            print(f"[yellow]{p2}'s TURN[/yellow]\n")
                         print_table()
                         print("\nChoose The Start Of The Wall: 1 to 8 (Left to Right)")
                         formatted_print("B", "Back\n")
@@ -313,7 +325,10 @@ def place_wall(x):
         elif(s == 'y'):
             while(True):
                 os.system('cls')
-                print(f"PLAYER {x}\n")
+                if x==1:
+                    print(f"[yellow]{p1}'s TURN[/yellow]\n")
+                elif x==2:
+                    print(f"[yellow]{p2}'s TURN[/yellow]\n")
                 print_table()
                 print("Choose The Column: 1 to 8 (Left to Right)")
                 formatted_print("B", "Back\n")
@@ -324,7 +339,10 @@ def place_wall(x):
                     l=int(l)-1
                     while(True):
                         os.system('cls')
-                        print(f"PLAYER {x}\n")
+                        if x==1:
+                            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+                        elif x==2:
+                            print(f"[yellow]{p2}'s TURN[/yellow]\n")
                         print_table()
                         print("choose the start of the wall: 1 to 8 (up to down)")
                         formatted_print("B", "Back\n")
@@ -454,7 +472,10 @@ def player_turn(x):
     global walls_for_2
     while(True):
         os.system('cls')
-        print(f"[yellow]PLAYER {x}'s TURN[/yellow]\n")
+        if x==1:
+            print(f"[yellow]{p1}'s TURN[/yellow]\n")
+        elif x==2:
+            print(f"[yellow]{p2}'s TURN[/yellow]\n")
         print_table()
         formatted_print("\nM", "Move Piece")
         formatted_print("P", "Place Wall")
@@ -508,9 +529,20 @@ def check_end_game():
         return 0
 ############################## تابع خروجی برنده و آپشن ادامه و خروج
 def print_end_game(x):
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
     while(True):
         os.system('cls')
-        print(f"PLAYER {x} WIIIIN :)\n")
+        if x == 1:
+            print(f"{p1} WIIIIN :)\n")
+            for i in information:
+                if p1 == information[i]["user"]:
+                    information[i]["win"]+=1
+        elif x == 2:
+            print(f"{p2} WIIIIN :)\n")
+            for i in information:
+                if p2 == information[i]["user"]:
+                    information[i]["win"]+=1
         formatted_print("N", "New Game")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
@@ -526,8 +558,8 @@ def do_game():
         make_starter()
         print("[hot_pink]Who starts first?[/hot_pink]")
         print()
-        formatted_print("1", "[yellow]PLAYER 1[/yellow]")
-        formatted_print("2", "[yellow]PLAYER 2[/yellow]")
+        formatted_print("1", f"[yellow]{p1}[/yellow]")
+        formatted_print("2", f"[yellow]{p2}[/yellow]")
         formatted_print("B", "Back")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
@@ -562,16 +594,14 @@ def do_game():
                     if(cnt == 0): break
                 x += 1
         elif(s == 'B'):
+            players.pop(1)
             back()
         elif s == 'E':
             quit()
         else:
-            print("ERROR")
-            time.sleep(3)
+            print("[bold red]Invalid Choice[/bold red]")
+            time.sleep(1.5)
 
-
-#print()
-#do_game()
 
 
 # signup FUNCTIONS
@@ -628,8 +658,7 @@ def registerInformation(id,username,password,email):
         "user": username,
         "password": password,
         "Email": email,
-        "win" : 0,
-        "History of games" : []
+        "win" : 0
     }
     with open("Players.json", 'w') as file:
         json.dump(data,file,indent=4)
@@ -643,20 +672,7 @@ def registerInformation(id,username,password,email):
 ################################################################################
 
 
-menu_history =[]
-
-
-
 # MENU OPTIONS FUNCTIONS
-
- #   def check_json(file_path):
-  #      if not os.path.exists(file_path):
-#         print(f"File '{file_path}' does not exist.")
-#            return True
-#        return os.path.getsize(file_path) == 0
-#    file_path = "Players.json"
-
-
 
 def formatted_print(input1, input2):
     print(f"{input1} ==> {input2}")
@@ -664,6 +680,8 @@ def formatted_print(input1, input2):
 def menu_split():
     print("[bold purple]-[/bold purple]"* 60)
 
+
+menu_history =[]
 
 def navigate(menu):
     menu_history.append(menu)
@@ -686,8 +704,6 @@ def quit():
 
 
 players = []
-#def player_indicate():
-
 
 def usernameLogin():
     username = input("Username: ")
@@ -763,23 +779,41 @@ def LeaderBoard():
         quit()
 
 
-
-
 def historyOfGame():
     playerInGame = []
-    with open("Players.json", 'r') as file:
-        information = json.load(file)
-    for i in information:
+    with open("Players.json", 'r') as file2:
+        information2 = json.load(file2)
+    for i in information2:
         if i == players[0]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
+            playerInGame.append(information2[i]["user"])
+    for i in information2:
         if i == players[1]:
-            playerInGame.append(information[i]["user"])
-    for i in information:
-        if i == players[0] or i == players[1]:
-            information[i]["History of games"].append(tuple(playerInGame))
-            with open("Players.json", 'w') as file:
-                json.dump(information,file,indent=4)
+            playerInGame.append(information2[i]["user"])
+    with open("history.json", 'r') as file:
+        information = json.load(file)
+    information.append(playerInGame)
+    with open("history.json", 'w') as file:
+        json.dump(information,file,indent=4)
+
+def printHistoryGame():
+    os.system('cls')
+    print("[hot_pink]HISTORY OF GAMES:[/hot_pink]\n")
+    with open("history.json", 'r') as file:
+        information = json.load(file)
+    print(information)
+    print()
+    menu_split()
+    formatted_print("B", "Back")
+    formatted_print("E", "Exit\n")
+    jj = input("Enter your choice: ")
+    if jj == "B":
+        back()
+    elif jj == "E":
+        quit()
+    else:
+        print("[bold red]Invalid Choice[/bold red]")
+        time.sleep(1.5)
+        return printHistoryGame()
 
 
 def initial_menu():
@@ -808,7 +842,7 @@ def initial_menu():
     elif ss == "P":
         navigate(LeaderBoard)
     elif ss == "H":
-        historyOfGame() # bug here
+        navigate(printHistoryGame) 
     else:
         print("[bold red]Invalid Choice[/bold red]")
         time.sleep(1.5)
@@ -821,18 +855,19 @@ def second_player():
     formatted_print("L", "Login")
     formatted_print("R", "Register")
     formatted_print("B", "Back")
-    formatted_print("E", "Exit")
+    formatted_print("E", "Exit\n")
     jj = input("Enter your choice: ")
     if jj == "R":
-        print()
         register()
-        navigate(name_select)
+        name_select()
+        navigate(do_game)
     elif jj == "L":
         print()
         menu_split()
         usernameLogin()
         passwordLogin()
-        navigate(name_select)
+        name_select()
+        navigate(do_game)
     elif jj == "B":
         back()
     elif jj == "E":
@@ -845,38 +880,39 @@ def second_player():
 
 def start_menu():
     os.system('cls')
-    print()
-    formatted_print("N", "New Game")
+    formatted_print("\nN", "New Game")
     formatted_print("B", "Back")
-    formatted_print("E", "Exit")
+    formatted_print("E", "Exit\n")
     ff = input("Enter your choice: ")
     if ff == "N":
         navigate(second_player)
     elif ff == "B":
         print("\n")
         menu_split()
+        players.clear()
         back()
     elif ff == "E":
         quit()
     else:
         print("[bold red]Invalid Choice[/bold red]")
+        time.sleep(1)
         return start_menu()
     
 
 
 def name_select():
-    os.system('cls')
-    print("[hot_pink]ENTER IN-GAME NAMES:[/hot_pink]\n")
     global p1
     global p2
-    p1 = input("Enter First Player's Name: ")
-    p2 = input("Enter Second Player's Name: ")
-    navigate(main_game)
-
-
-
-def main_game():
-    do_game()
+    os.system('cls')
+    print("[hot_pink]ENTER IN-GAME NAMES:[/hot_pink]\n")
+    with open("Players.json", 'r') as file:
+        information = json.load(file)
+    for i in information:
+        if i == players[0]:
+            p1 = information[i]["user"]
+        elif i == players[1]:
+            p2 = information[i]["user"]
+    navigate(do_game)
 
 
 

@@ -1,37 +1,3 @@
 {
-    "93bfbbd7-77a3-42f6-817e-e8e540d50e5c": {
-        "user": "a",
-        "password": "$2b$12$lkVO5OgEV43vCt38nNOC9e35BWaPeQoXZabEUp.G1zbdZIti68WMu",
-        "Email": "a@a.co",
-        "win": 50,
-        "History of games": []
-    },
-    "3479cf73-3e4a-4dda-bc7c-317beabb6a80": {
-        "user": "z",
-        "password": "$2b$12$clEfMNAs9Qiq3xJSjHp.JeKTVrsqXmg6xE7Hv0rgCYRmzwsUuNoPi",
-        "Email": "z@z.ck",
-        "win": 91,
-        "History of games": []
-    },
-    "cf9e3b1f-9a83-44b5-9be3-6b5dfd6c6d3d": {
-        "user": "q",
-        "password": "$2b$12$wpvjDlw3zZ7s6aaWFC3/YOTajz5V2wRwOLVhrohOr.K4fLFp79gCC",
-        "Email": "q@q.vb",
-        "win": 8,
-        "History of games": []
-    },
-    "c4ed2443-2076-4805-af6c-ebeec05ede8d": {
-        "user": "ILIA",
-        "password": "$2b$12$HgfgrxpSeuMb.l7eZFc7weBJeJnj4/QMLC0iB7gHKsvgzkAlO27Qm",
-        "Email": "ilia@example.com",
-        "win": 0,
-        "History of games": []
-    },
-    "7c863142-20de-4d53-ac5d-724f6b8e9fe4": {
-        "user": "ILIA2",
-        "password": "$2b$12$1zqUYzgpCysqdtYfG7SNFeMKsXbC9KfoyJLw5Bz2TTHXSvCMb1v3u",
-        "Email": "ilia2@example.com",
-        "win": 0,
-        "History of games": []
-    }
+   
 }
