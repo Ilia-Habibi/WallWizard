@@ -554,6 +554,7 @@ def print_end_game(x):
                     information[i]["win"]+=1
                     with open("Players.json", 'w') as file:
                         json.dump(information,file,indent=4)
+                    historyOfGame(p1 + ": winner", p2)
         elif x == 2:
             print(f"{p2} WIIIIN :)\n")
             for i in information:
@@ -561,6 +562,7 @@ def print_end_game(x):
                     information[i]["win"]+=1
                     with open("Players.json", 'w') as file:
                         json.dump(information,file,indent=4)
+                    historyOfGame(p1, p2 + ": winner")
         formatted_print("N", "New Game")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
@@ -797,16 +799,8 @@ def LeaderBoard():
         quit()
 
 
-def historyOfGame():
-    playerInGame = []
-    with open("Players.json", 'r') as file2:
-        information2 = json.load(file2)
-    for i in information2:
-        if i == players[0]:
-            playerInGame.append(information2[i]["user"])
-    for i in information2:
-        if i == players[1]:
-            playerInGame.append(information2[i]["user"])
+def historyOfGame(player1, player2):
+    playerInGame = [player1,player2]
     with open("history.json", 'r') as file:
         information = json.load(file)
     information.append(playerInGame)
