@@ -520,11 +520,15 @@ def print_end_game(x):
             for i in information:
                 if p1 == information[i]["user"]:
                     information[i]["win"]+=1
+                    with open("Players.json", 'w') as file:
+                        json.dump(information,file,indent=4)
         elif x == 2:
             print(f"{p2} WIIIIN :)\n")
             for i in information:
                 if p2 == information[i]["user"]:
                     information[i]["win"]+=1
+                    with open("Players.json", 'w') as file:
+                        json.dump(information,file,indent=4)
         formatted_print("N", "New Game")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")

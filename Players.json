@@ -1,3 +1,14 @@
 {
-   
+    "65edccca-be19-49e2-9b2e-5abca2c2141c": {
+        "user": "a",
+        "password": "$2b$12$GCtvuYDMYOzggF8ouXj2LO9KlNotjVLXJlykIvj813Ekr0D6aC6Ua",
+        "Email": "a@a.com",
+        "win": 0
+    },
+    "850a2012-533e-47b9-bc33-60bdb5a657a9": {
+        "user": "b",
+        "password": "$2b$12$zppO9bWm29KjBwbgE9k/We12f/QSeZ4qJbCubQzhyMiHdZsTckwAm",
+        "Email": "b@b.com",
+        "win": 1
+    }
 }
