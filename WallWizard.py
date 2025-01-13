@@ -156,7 +156,7 @@ def print_table():
             else:
                 print(table_piece[i][j], end = " ")
             if j<8:
-                print("[bold yellow]|[/bold yellow]" if table_wall_y[i][j]==1 else "|", end=" ")
+                print("[bold #FFA500]|[/bold #FFA500]" if table_wall_y[i][j]==1 else "|", end=" ")
         if(i == 0): 
             print(f"  [bold yellow]>>[/bold yellow] [bold light_green]{p1} walls : {walls_for_1}[/bold light_green]")
         elif(i == 1):
@@ -165,9 +165,9 @@ def print_table():
             print()
         if i<8:
             for j in range(n):
-                print("[bold yellow]---[/bold yellow]" if table_wall_x[i][j]==1 else "---", end="")
+                print("[bold #FFA500]---[/bold #FFA500]" if table_wall_x[i][j]==1 else "---", end="")
                 if j<8:
-                    print("[bold yellow]+[/bold yellow]" if table_wall_points[i][j]==1 else "+", end="")
+                    print("[bold #FFA500]+[/bold #FFA500]" if table_wall_points[i][j]==1 else "+", end="")
         print()
     return
 ############################## تابع حرکت مهره x
@@ -548,7 +548,7 @@ def print_end_game(x):
     while(True):
         os.system('cls')
         if x == 1:
-            print(f"{p1} WIIIIN :)\n")
+            print(f"[bold #FFA500]{p1}[/bold #FFA500] WIIIINS :)\n")
             for i in information:
                 if p1 == information[i]["user"]:
                     information[i]["win"]+=1
@@ -556,18 +556,18 @@ def print_end_game(x):
                         json.dump(information,file,indent=4)
                     historyOfGame(p1 + ": winner", p2)
         elif x == 2:
-            print(f"{p2} WIIIIN :)\n")
+            print(f"[bold #FFA500]{p2}[/bold #FFA500] WIIIINS :)\n")
             for i in information:
                 if p2 == information[i]["user"]:
                     information[i]["win"]+=1
                     with open("Players.json", 'w') as file:
                         json.dump(information,file,indent=4)
                     historyOfGame(p1, p2 + ": winner")
-        formatted_print("N", "New Game")
+        formatted_print("R", "Rematch\n")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
-        if(s == 'N'): return 1
-        elif(s == 'E'): return 2
+        if(s == 'R'): return 1
+        elif(s == 'E'): quit()
         else:
             print("[bold red]Invalid Choice[/bold red]") 
             time.sleep(2)
@@ -783,7 +783,7 @@ def LeaderBoard():
             if i == 0:
                 print(f'[bold bright_yellow]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold bright_yellow]')
             elif i == 1:
-                print(f'[bold #D3D3D3]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold #D3D3D3]')
+                print(f'[bold #C0C0C0]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold #C0C0C0]')
             elif i == 2:
                 print(f'[bold #CD7F32]({i+1}) {point[i][j]} : {point[i][j+1]}[/bold #CD7F32]')
             else:
@@ -812,7 +812,8 @@ def printHistoryGame():
     print("[hot_pink]HISTORY OF GAMES:[/hot_pink]\n")
     with open("history.json", 'r') as file:
         information = json.load(file)
-    print(information)
+    for i in range(len(information)):
+        print(f"[#00FFFF]Game {i+1}[/#00FFFF] [bold]>>>   [/bold]" + f"[bold yellow]{information[i][0]}[/bold yellow] vs [bold yellow]{information[i][1]}[/bold yellow]")
     print()
     menu_split()
     formatted_print("B", "Back")
@@ -831,7 +832,7 @@ def printHistoryGame():
 def initial_menu():
     os.system('cls')
     ascii_art = pyfiglet.figlet_format("QUORIDOR", font="epic")
-    print(f"[bold red]{ascii_art}[/bold red]")
+    print(f"[bold #00FFFF]{ascii_art}[/bold #00FFFF]")
     print(f"[bold yellow]Hi players! \nWelcome to QUORIDOR! \nA WallWizard Project[bold yellow]")
     menu_split()
     print("[hot_pink]MAIN MENU:[/hot_pink]\n")
