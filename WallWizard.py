@@ -280,7 +280,7 @@ def place_wall(x):
         elif x==2:
             print(f"[yellow]{p2}'s TURN[/yellow]\n")
         print_table()
-        print("\nChoose Axis: x or y")
+        print("\nChoose Axis: X or Y")
         formatted_print("B", "Back\n")
         s = input("Enter your choice: ")
         place = find_piece(x)
@@ -288,7 +288,7 @@ def place_wall(x):
         b = place[1]
         if(s == 'B'):
             return 0
-        elif(s == 'x'):
+        elif(s == 'X'):
             while(True):
                 os.system('cls')
                 if x==1:
@@ -336,7 +336,7 @@ def place_wall(x):
                 else:
                     print("[bold red]Invalid Choice[/bold red]")
                     time.sleep(3)
-        elif(s == 'y'):
+        elif(s == 'Y'):
             while(True):
                 os.system('cls')
                 if x==1:
