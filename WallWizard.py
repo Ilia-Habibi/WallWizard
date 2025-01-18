@@ -563,7 +563,7 @@ def print_end_game(x):
                     with open("Players.json", 'w') as file:
                         json.dump(information,file,indent=4)
                     historyOfGame(p1, p2 + ": winner")
-        formatted_print("R", "Rematch\n")
+        formatted_print("R", "Rematch")
         formatted_print("E", "Exit\n")
         s = input("Enter your choice: ")
         if(s == 'R'): return 1
